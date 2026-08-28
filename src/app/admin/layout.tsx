@@ -37,7 +37,7 @@ export default function AdminLayout({
               key={item.href}
               href={item.href}
               className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
-                pathname === item.href
+                pathname === item.href || (item.href !== "/admin" && pathname.startsWith(item.href))
                   ? "bg-primary text-white"
                   : "text-gray-700 hover:bg-gray-100"
               }`}

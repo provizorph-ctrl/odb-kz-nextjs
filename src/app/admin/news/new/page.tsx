@@ -39,15 +39,29 @@ export default function NewNewsPage() {
   return (
     <div>
       <h1 className="text-2xl font-bold mb-6">Новая новость</h1>
-      <form onSubmit={handleSubmit} className="space-y-6 max-w-3xl">
+      <form onSubmit={handleSubmit} className="space-y-6 max-w-4xl">
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-1">Slug</label>
             <input type="text" value={form.slug} onChange={e => setForm({ ...form, slug: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg" required />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Заголовок (RU)</label>
+            <label className="block text-sm font-medium mb-1">Заголовок (RU) *</label>
             <input type="text" value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg" required />
+          </div>
+        </div>
+        <div className="grid grid-cols-3 gap-4">
+          <div>
+            <label className="block text-sm font-medium mb-1">Заголовок (EN)</label>
+            <input type="text" value={form.titleEn} onChange={e => setForm({ ...form, titleEn: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Заголовок (KZ)</label>
+            <input type="text" value={form.titleKz} onChange={e => setForm({ ...form, titleKz: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Заголовок (QZ)</label>
+            <input type="text" value={form.titleQz} onChange={e => setForm({ ...form, titleQz: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
           </div>
         </div>
         <div>
@@ -55,8 +69,18 @@ export default function NewNewsPage() {
           <input type="text" value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">Контент (RU)</label>
-          <textarea value={form.content} onChange={e => setForm({ ...form, content: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg h-48" required />
+          <label className="block text-sm font-medium mb-1">Контент (RU) *</label>
+          <textarea value={form.content} onChange={e => setForm({ ...form, content: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg h-48 font-mono text-sm" required />
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium mb-1">Контент (EN)</label>
+            <textarea value={form.contentEn} onChange={e => setForm({ ...form, contentEn: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg h-32 font-mono text-sm" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Контент (KZ)</label>
+            <textarea value={form.contentKz} onChange={e => setForm({ ...form, contentKz: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg h-32 font-mono text-sm" />
+          </div>
         </div>
         <div className="flex items-center gap-6">
           <label className="flex items-center gap-2">

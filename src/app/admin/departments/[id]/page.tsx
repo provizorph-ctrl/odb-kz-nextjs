@@ -9,22 +9,19 @@ export default function EditDepartmentPage({ params }: { params: Promise<{ id: s
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState({
-    slug: "",
-    name: "",
-    description: "",
-    icon: "",
-    sortOrder: 0,
-    isPublished: false,
+    slug: "", name: "", nameEn: "", nameKz: "", nameQz: "",
+    description: "", descriptionEn: "", descriptionKz: "",
+    icon: "", sortOrder: 0, isPublished: false,
   });
 
   useEffect(() => {
     fetch(`/api/departments/${id}`).then(r => r.json()).then(data => {
       setForm({
-        slug: data.slug || "",
-        name: data.name || "",
+        slug: data.slug || "", name: data.name || "",
+        nameEn: data.nameEn || "", nameKz: data.nameKz || "", nameQz: data.nameQz || "",
         description: data.description || "",
-        icon: data.icon || "",
-        sortOrder: data.sortOrder || 0,
+        descriptionEn: data.descriptionEn || "", descriptionKz: data.descriptionKz || "",
+        icon: data.icon || "", sortOrder: data.sortOrder || 0,
         isPublished: data.isPublished || false,
       });
       setLoading(false);
@@ -35,8 +32,7 @@ export default function EditDepartmentPage({ params }: { params: Promise<{ id: s
     e.preventDefault();
     setSaving(true);
     const res = await fetch(`/api/departments/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      method: "PUT", headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     });
     if (res.ok) router.push("/admin/departments");
@@ -57,20 +53,44 @@ export default function EditDepartmentPage({ params }: { params: Promise<{ id: s
         <h1 className="text-2xl font-bold">Редактирование отделения</h1>
         <button onClick={handleDelete} className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">Удалить</button>
       </div>
-      <form onSubmit={handleSubmit} className="space-y-6 max-w-3xl">
+      <form onSubmit={handleSubmit} className="space-y-6 max-w-4xl">
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-1">Slug</label>
             <input type="text" value={form.slug} onChange={e => setForm({ ...form, slug: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg" required />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Название</label>
+            <label className="block text-sm font-medium mb-1">Название (RU) *</label>
             <input type="text" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg" required />
           </div>
         </div>
+        <div className="grid grid-cols-3 gap-4">
+          <div>
+            <label className="block text-sm font-medium mb-1">Название (EN)</label>
+            <input type="text" value={form.nameEn} onChange={e => setForm({ ...form, nameEn: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Название (KZ)</label>
+            <input type="text" value={form.nameKz} onChange={e => setForm({ ...form, nameKz: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Название (QZ)</label>
+            <input type="text" value={form.nameQz} onChange={e => setForm({ ...form, nameQz: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+          </div>
+        </div>
         <div>
-          <label className="block text-sm font-medium mb-1">Описание</label>
+          <label className="block text-sm font-medium mb-1">Описание (RU)</label>
           <textarea value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg h-32" />
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium mb-1">Описание (EN)</label>
+            <textarea value={form.descriptionEn} onChange={e => setForm({ ...form, descriptionEn: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg h-24" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Описание (KZ)</label>
+            <textarea value={form.descriptionKz} onChange={e => setForm({ ...form, descriptionKz: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg h-24" />
+          </div>
         </div>
         <div className="grid grid-cols-3 gap-4">
           <div>
