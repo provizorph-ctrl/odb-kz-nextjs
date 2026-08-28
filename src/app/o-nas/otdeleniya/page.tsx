@@ -3,6 +3,8 @@ import { Footer } from "@/components/sites/odb-kz-65e97781/root-8a5edab2/Footer"
 import { getLayoutData } from "@/lib/layout-data";
 import { query } from "@/lib/db";
 
+export const dynamic = "force-dynamic";
+
 interface DepartmentRow {
   slug: string;
   name: string;

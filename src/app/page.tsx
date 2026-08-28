@@ -3,6 +3,8 @@ import { HeroSlider } from "@/components/sites/odb-kz-65e97781/root-8a5edab2/Her
 import { Statistics } from "@/components/sites/odb-kz-65e97781/root-8a5edab2/Statistics";
 import { AboutSection } from "@/components/sites/odb-kz-65e97781/root-8a5edab2/AboutSection";
 import { DepartmentsMenu } from "@/components/sites/odb-kz-65e97781/root-8a5edab2/DepartmentsMenu";
+
+export const dynamic = "force-dynamic";
 import { NewsModule } from "@/components/sites/odb-kz-65e97781/root-8a5edab2/NewsModule";
 import { PhotoGallery } from "@/components/sites/odb-kz-65e97781/root-8a5edab2/PhotoGallery";
 import { GovProgramsCarousel } from "@/components/sites/odb-kz-65e97781/root-8a5edab2/GovProgramsCarousel";

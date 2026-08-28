@@ -2,6 +2,8 @@ import { Header } from "@/components/sites/odb-kz-65e97781/root-8a5edab2/Header"
 import { Footer } from "@/components/sites/odb-kz-65e97781/root-8a5edab2/Footer";
 import { getLayoutData } from "@/lib/layout-data";
 
+export const dynamic = "force-dynamic";
+
 export default async function HistoryPage() {
   const { menu, contacts, settingMap } = await getLayoutData();
 

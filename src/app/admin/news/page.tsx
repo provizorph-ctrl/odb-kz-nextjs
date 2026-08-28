@@ -1,6 +1,8 @@
 import { query } from "@/lib/db";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 interface NewsRow {
   id: string;
   title: string;
