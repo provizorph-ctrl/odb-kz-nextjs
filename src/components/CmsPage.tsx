@@ -13,14 +13,12 @@ interface PageData {
   contentEn?: string;
   titleKz?: string;
   contentKz?: string;
-  titleQz?: string;
-  contentQz?: string;
 }
 
 export default async function CmsPage({ slug }: { slug: string }) {
   const { menu, contacts, settingMap } = await getLayoutData();
   const page = await queryOne<PageData>(
-    'SELECT title, content, "titleEn", "contentEn", "titleKz", "contentKz", "titleQz", "contentQz" FROM "Page" WHERE slug = $1 AND "isPublished" = true',
+    'SELECT title, content, "titleEn", "contentEn", "titleKz", "contentKz" FROM "Page" WHERE slug = $1 AND "isPublished" = true',
     [slug]
   );
 
@@ -33,7 +31,6 @@ export default async function CmsPage({ slug }: { slug: string }) {
             title={page?.title || slug}
             titleEn={page?.titleEn}
             titleKz={page?.titleKz}
-            titleQz={page?.titleQz}
             hospitalName={settingMap.hospital_name}
           />
         </div>
@@ -42,7 +39,6 @@ export default async function CmsPage({ slug }: { slug: string }) {
             content={page.content}
             contentEn={page.contentEn}
             contentKz={page.contentKz}
-            contentQz={page.contentQz}
           />
         ) : (
           <p className="text-muted-foreground">Страница в разработке</p>
