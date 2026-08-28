@@ -1,0 +1,167 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String
+  role      String   @default("ADMIN")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Page {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  titleEn     String?
+  titleKz     String?
+  titleQz     String?
+  content     String   @db.Text
+  contentEn   String?  @db.Text
+  contentKz   String?  @db.Text
+  contentQz   String?  @db.Text
+  description String?
+  image       String?
+  isPublished Boolean  @default(false)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model News {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  titleEn     String?
+  titleKz     String?
+  titleQz     String?
+  content     String   @db.Text
+  contentEn   String?  @db.Text
+  contentKz   String?  @db.Text
+  contentQz   String?  @db.Text
+  description String?
+  image       String?
+  date        DateTime @default(now())
+  isPublished Boolean  @default(false)
+  isFeatured  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Department {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  name          String
+  nameEn        String?
+  nameKz        String?
+  nameQz        String?
+  description   String?  @db.Text
+  descriptionEn String?  @db.Text
+  descriptionKz String?  @db.Text
+  descriptionQz String?  @db.Text
+  icon          String?
+  image         String?
+  sortOrder     Int      @default(0)
+  isPublished   Boolean  @default(false)
+  doctors       Doctor[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Doctor {
+  id           String      @id @default(cuid())
+  name         String
+  nameEn       String?
+  nameKz       String?
+  nameQz       String?
+  position     String
+  positionEn   String?
+  positionKz   String?
+  positionQz   String?
+  image        String?
+  departmentId String?
+  department   Department? @relation(fields: [departmentId], references: [id])
+  sortOrder    Int         @default(0)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
+model GalleryCategory {
+  id        String         @id @default(cuid())
+  name      String
+  nameEn    String?
+  nameKz    String?
+  nameQz    String?
+  sortOrder Int            @default(0)
+  images    GalleryImage[]
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+}
+
+model GalleryImage {
+  id         String          @id @default(cuid())
+  src        String
+  alt        String?
+  categoryId String
+  category   GalleryCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  createdAt  DateTime        @default(now())
+}
+
+model Contact {
+  id        String   @id @default(cuid())
+  label     String
+  value     String
+  type      String   @default("phone")
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SocialLink {
+  id        String   @id @default(cuid())
+  platform  String
+  url       String
+  icon      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MenuItem {
+  id          String     @id @default(cuid())
+  label       String
+  labelEn     String?
+  labelKz     String?
+  labelQz     String?
+  url         String
+  parentId    String?
+  parent      MenuItem?  @relation("MenuTree", fields: [parentId], references: [id])
+  children    MenuItem[] @relation("MenuTree")
+  sortOrder   Int        @default(0)
+  isPublished Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Setting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+}
+
+model Upload {
+  id           String   @id @default(cuid())
+  filename     String
+  originalName String
+  mimetype     String
+  size         Int
+  path         String
+  createdAt    DateTime @default(now())
+}
