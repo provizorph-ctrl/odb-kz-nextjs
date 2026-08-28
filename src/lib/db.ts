@@ -20,7 +20,8 @@ function getPool(): Pool {
 
 export const db = getPool();
 
-export async function query<T extends Record<string, unknown> = Record<string, unknown>>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function query<T = any>(
   text: string,
   params?: unknown[]
 ): Promise<T[]> {
@@ -30,7 +31,8 @@ export async function query<T extends Record<string, unknown> = Record<string, u
   return rows as T[];
 }
 
-export async function queryOne<T extends Record<string, unknown> = Record<string, unknown>>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function queryOne<T = any>(
   text: string,
   params?: unknown[]
 ): Promise<T | null> {
