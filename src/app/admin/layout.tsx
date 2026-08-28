@@ -8,7 +8,7 @@ const navItems = [
   { label: "Страницы", href: "/admin/pages", icon: "📄" },
   { label: "Новости", href: "/admin/news", icon: "📰" },
   { label: "Отделения", href: "/admin/departments", icon: "🏥" },
-  { label: "Галерея", href: "/admin/gallery", icon: "🖼️" },
+  { label: "Контакты", href: "/admin/contacts", icon: "📞" },
   { label: "Настройки", href: "/admin/settings", icon: "⚙️" },
 ];
 
