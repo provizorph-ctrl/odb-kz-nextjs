@@ -24,9 +24,9 @@ export function Footer({ contacts, settingMap }: FooterProps) {
 
   return (
     <footer className="bg-foreground text-white mt-auto">
-      <div className="container mx-auto px-4 py-10">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
-          <div className="space-y-4">
+      <div className="container mx-auto px-4 py-8 sm:py-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mb-8">
+          <div className="col-span-2 md:col-span-1 space-y-4">
             <div className="flex items-center gap-3">
               <div className="size-10 rounded-xl bg-white/10 flex items-center justify-center">
                 <svg className="size-6 text-white" fill="currentColor" viewBox="0 0 24 24">

@@ -54,14 +54,14 @@ export function Statistics({ bedsCount = "422", treatedCount = "20332", kdcCount
 
   return (
     <section className="py-6">
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-3 gap-2 sm:gap-4">
         {stats.map((stat, index) => (
           <div
             key={stat.title}
-            className="relative flex flex-col items-center text-center gap-3 p-6 rounded-2xl bg-white shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 border border-border/50"
+            className="relative flex flex-col items-center text-center gap-2 sm:gap-3 p-3 sm:p-6 rounded-xl sm:rounded-2xl bg-white shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 border border-border/50"
           >
-            <div className="size-14 flex items-center justify-center rounded-2xl bg-primary/10">
-              <svg className="size-7 text-primary" fill="currentColor" viewBox="0 0 24 24">
+            <div className="size-10 sm:size-14 flex items-center justify-center rounded-xl sm:rounded-2xl bg-primary/10">
+              <svg className="size-5 sm:size-7 text-primary" fill="currentColor" viewBox="0 0 24 24">
                 {stat.icon === "bed" && (
                   <path d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1zM10 6a2 2 0 0 1 4 0v1h-4V6z" />
                 )}
@@ -73,7 +73,7 @@ export function Statistics({ bedsCount = "422", treatedCount = "20332", kdcCount
                 )}
               </svg>
             </div>
-            <div className="text-3xl font-bold text-primary tracking-tight">
+            <div className="text-xl sm:text-3xl font-bold text-primary tracking-tight">
               <AnimatedNumber target={stat.number} />
             </div>
             <div className="text-sm font-medium text-muted-foreground uppercase tracking-wider">

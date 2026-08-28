@@ -5,13 +5,13 @@ interface AboutProps {
 export function AboutSection({ description }: AboutProps) {
   return (
     <section className="py-4">
-      <div className="grid md:grid-cols-2 gap-8 items-start">
-        <div className="space-y-5">
+      <div className="grid md:grid-cols-2 gap-6 md:gap-8 items-start">
+        <div className="space-y-4 sm:space-y-5">
           <div className="flex items-center gap-2 mb-2">
-            <div className="w-10 h-1 rounded-full bg-primary" />
+            <div className="w-8 sm:w-10 h-1 rounded-full bg-primary" />
             <span className="text-xs font-semibold text-primary uppercase tracking-wider">О нас</span>
           </div>
-          <h2 className="text-2xl font-bold text-foreground leading-tight text-balance">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground leading-tight text-balance">
             Туркестанская областная многопрофильная детская больница
           </h2>
           <p className="text-muted-foreground leading-relaxed">

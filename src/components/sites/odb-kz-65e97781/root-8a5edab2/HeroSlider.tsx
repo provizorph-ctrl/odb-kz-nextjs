@@ -35,11 +35,11 @@ export function HeroSlider() {
 
   return (
     <section
-      className="relative overflow-hidden rounded-2xl bg-muted shadow-medium"
+      className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-muted shadow-medium"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div className="relative aspect-[2.2/1] w-full">
+      <div className="relative aspect-[16/9] sm:aspect-[2.2/1] w-full">
         {slides.map((slide, index) => (
           <div
             key={slide.src}
@@ -50,56 +50,55 @@ export function HeroSlider() {
             }`}
           >
             <div className="w-full h-full bg-gradient-to-br from-primary/20 via-primary/10 to-primary/5 flex items-center justify-center">
-              <div className="text-center">
-                <span className="text-primary/30 text-2xl font-semibold tracking-wide">{slide.alt}</span>
+              <div className="text-center px-4">
+                <span className="text-primary/30 text-sm sm:text-2xl font-semibold tracking-wide">{slide.alt}</span>
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Overlay gradient */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent z-20 pointer-events-none" />
 
-      {/* Navigation arrows */}
+      {/* Nav arrows - smaller on mobile */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 size-11 flex items-center justify-center rounded-full bg-white/90 hover:bg-white text-foreground shadow-medium transition-all z-30 hover:scale-110"
+        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 size-9 sm:size-11 flex items-center justify-center rounded-full bg-white/90 hover:bg-white text-foreground shadow-medium transition-all z-30 hover:scale-110"
         aria-label="Предыдущий слайд"
       >
-        <svg className="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="size-4 sm:size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
         </svg>
       </button>
 
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 size-11 flex items-center justify-center rounded-full bg-white/90 hover:bg-white text-foreground shadow-medium transition-all z-30 hover:scale-110"
+        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 size-9 sm:size-11 flex items-center justify-center rounded-full bg-white/90 hover:bg-white text-foreground shadow-medium transition-all z-30 hover:scale-110"
         aria-label="Следующий слайд"
       >
-        <svg className="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="size-4 sm:size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
         </svg>
       </button>
 
       {/* Dots */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2.5 z-30">
+      <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-2.5 z-30">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
             className={`h-2 rounded-full transition-all duration-300 ${
               index === currentSlide
-                ? "bg-white w-8"
+                ? "bg-white w-6 sm:w-8"
                 : "bg-white/50 w-2 hover:bg-white/70"
             }`}
-            aria-label={`Перейти к слайду ${index + 1}`}
+            aria-label={`Слайд ${index + 1}`}
           />
         ))}
       </div>
 
-      {/* Slide counter */}
-      <div className="absolute top-4 right-4 z-30 px-3 py-1.5 rounded-full bg-black/30 backdrop-blur-sm text-white text-xs font-medium">
+      {/* Counter */}
+      <div className="absolute top-3 sm:top-4 right-3 sm:right-4 z-30 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-black/30 backdrop-blur-sm text-white text-[10px] sm:text-xs font-medium">
         {currentSlide + 1} / {slides.length}
       </div>
     </section>

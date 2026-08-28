@@ -1,3 +1,8 @@
+"use client";
+
+import { useState } from "react";
+import { useLang } from "@/lib/lang-context";
+
 interface MenuItemData {
   id: string;
   label: string;
@@ -13,8 +18,6 @@ interface ContactData {
   label: string;
   value: string;
 }
-
-import { useLang } from "@/lib/lang-context";
 
 function langLabel(item: MenuItemData, lang: string) {
   switch (lang) {
@@ -32,9 +35,12 @@ export function Header({
   contacts: ContactData[];
 }) {
   const { lang, setLang } = useLang();
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
     <header className="sticky top-0 z-50">
-      <div className="bg-primary text-white">
+      {/* Top bar */}
+      <div className="bg-primary text-white hidden sm:block">
         <div className="container mx-auto px-4 flex items-center justify-between h-10">
           <div className="flex items-center gap-4 text-xs">
             {contacts.slice(0, 1).map((c) => (
@@ -50,38 +56,27 @@ export function Header({
               </a>
             ))}
             <span className="text-white/40">|</span>
-            <span className="hidden sm:inline text-white/70">Пн-Пт: 8:00 - 17:00</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <button className="size-7 flex items-center justify-center rounded-md hover:bg-white/10 transition-colors" aria-label="Карта сайта">
-              <svg className="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-              </svg>
-            </button>
-            <button className="size-7 flex items-center justify-center rounded-md hover:bg-white/10 transition-colors" aria-label="Версия для слабовидящих">
-              <svg className="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-              </svg>
-            </button>
+            <span className="text-white/70">Пн-Пт: 8:00 - 17:00</span>
           </div>
         </div>
       </div>
 
+      {/* Main header */}
       <div className="bg-white shadow-soft border-b border-border/50">
         <div className="container mx-auto px-4 flex items-center justify-between py-3">
-          <a href="/" className="flex items-center gap-3 group">
-            <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/15 transition-colors">
-              <svg className="size-7 text-primary" fill="currentColor" viewBox="0 0 24 24">
+          <a href="/" className="flex items-center gap-2 sm:gap-3 group">
+            <div className="size-9 sm:size-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/15 transition-colors">
+              <svg className="size-5 sm:size-7 text-primary" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
               </svg>
             </div>
             <div>
-              <div className="text-lg font-bold text-primary leading-tight">ОДБ</div>
-              <div className="text-xs text-muted-foreground leading-tight">Областная детская больница</div>
+              <div className="text-base sm:text-lg font-bold text-primary leading-tight">ОДБ</div>
+              <div className="text-[10px] sm:text-xs text-muted-foreground leading-tight">Областная детская больница</div>
             </div>
           </a>
 
+          {/* Desktop lang + search */}
           <div className="hidden lg:flex items-center gap-3">
             <div className="flex items-center gap-1 text-xs">
               {(["ru", "en", "kz"] as const).map((l) => (
@@ -98,17 +93,27 @@ export function Header({
                 </button>
               ))}
             </div>
-
-            <button className="size-9 flex items-center justify-center rounded-full bg-primary text-white hover:bg-primary/90 transition-colors shadow-soft" aria-label="Поиск">
-              <svg className="size-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
-              </svg>
-            </button>
           </div>
+
+          {/* Burger button */}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="lg:hidden size-10 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
+            aria-label="Меню"
+          >
+            <svg className="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {mobileOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+              )}
+            </svg>
+          </button>
         </div>
       </div>
 
-      <nav className="bg-white border-b border-border/50">
+      {/* Desktop nav */}
+      <nav className="bg-white border-b border-border/50 hidden lg:block">
         <div className="container mx-auto px-4">
           <ul className="flex items-center gap-0 overflow-x-auto scrollbar-hide">
             {menu.map((item) => (
@@ -144,19 +149,58 @@ export function Header({
         </div>
       </nav>
 
-      <div className="bg-secondary/50 border-b border-border/30">
-        <div className="container mx-auto px-4 py-1.5 flex justify-end">
-          <a
-            href="/admin/login"
-            className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors"
-          >
-            <svg className="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-            <span>Войти</span>
-          </a>
-        </div>
-      </div>
+      {/* Mobile nav */}
+      {mobileOpen && (
+        <nav className="lg:hidden bg-white border-b border-border/50 shadow-lg">
+          <div className="container mx-auto px-4 py-3">
+            {/* Mobile lang switcher */}
+            <div className="flex items-center gap-2 mb-3 pb-3 border-b border-gray-100">
+              {(["ru", "en", "kz"] as const).map((l) => (
+                <button
+                  key={l}
+                  onClick={() => setLang(l)}
+                  className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
+                    lang === l
+                      ? "bg-primary text-white"
+                      : "text-muted-foreground bg-gray-100 hover:bg-primary/10"
+                  }`}
+                >
+                  {l.toUpperCase()}
+                </button>
+              ))}
+            </div>
+            {/* Mobile menu items */}
+            <ul className="space-y-1">
+              {menu.map((item) => (
+                <li key={item.id}>
+                  <a
+                    href={item.url}
+                    onClick={() => setMobileOpen(false)}
+                    className="block px-3 py-2.5 text-sm font-medium text-foreground hover:bg-primary/5 hover:text-primary rounded-lg transition-colors"
+                  >
+                    {langLabel(item, lang)}
+                  </a>
+                  {item.children && item.children.length > 0 && (
+                    <ul className="pl-4 space-y-0.5">
+                      {item.children.map((child) => (
+                        <li key={child.id}>
+                          <a
+                            href={child.url}
+                            onClick={() => setMobileOpen(false)}
+                            className="block px-3 py-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                          >
+                            {langLabel(child, lang)}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </nav>
+      )}
     </header>
   );
 }

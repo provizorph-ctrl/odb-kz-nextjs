@@ -5,7 +5,7 @@ interface DepartmentData {
 
 export function DepartmentsMenu({ departments }: { departments: DepartmentData[] }) {
   return (
-    <section className="bg-white rounded-2xl p-6 shadow-soft border border-border/50">
+    <section className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-soft border border-border/50">
       <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
         <div className="w-1 h-6 bg-primary rounded-full" />
         Отделения

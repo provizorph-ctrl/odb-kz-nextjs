@@ -93,14 +93,14 @@ export function QuickLinksMenu() {
           <a
             key={link.id}
             href={link.url}
-            className={`group flex flex-col items-center gap-3 p-5 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${
+            className={`group flex flex-col items-center gap-2 sm:gap-3 p-3 sm:p-5 rounded-xl sm:rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${
               link.isWarning
                 ? "border-accent/20 bg-accent/5 hover:bg-accent hover:border-accent hover:shadow-medium"
                 : "border-primary/10 bg-primary/5 hover:bg-primary hover:border-primary hover:shadow-medium"
             }`}
           >
-            <div
-              className={`size-12 flex items-center justify-center rounded-xl transition-all duration-300 ${
+              <div
+              className={`size-10 sm:size-12 flex items-center justify-center rounded-lg sm:rounded-xl transition-all duration-300 ${
                 link.isWarning
                   ? "text-accent bg-accent/10 group-hover:text-white group-hover:bg-white/20"
                   : "text-primary bg-primary/10 group-hover:text-white group-hover:bg-white/20"

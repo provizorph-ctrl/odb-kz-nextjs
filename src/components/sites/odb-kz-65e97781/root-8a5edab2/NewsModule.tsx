@@ -7,7 +7,7 @@ interface NewsData {
 
 export function NewsModule({ news }: { news: NewsData[] }) {
   return (
-    <section className="bg-white rounded-2xl p-6 shadow-soft border border-border/50">
+    <section className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-soft border border-border/50">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-bold flex items-center gap-2">
           <div className="w-1 h-6 bg-primary rounded-full" />

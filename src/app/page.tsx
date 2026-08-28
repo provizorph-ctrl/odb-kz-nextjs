@@ -42,10 +42,10 @@ export default async function Home() {
   return (
     <>
       <Header menu={menu} contacts={contacts} />
-      <main className="container mx-auto px-4 py-6">
+      <main className="container mx-auto px-4 py-4 sm:py-6">
         <HeroSlider />
-        <div className="grid lg:grid-cols-[1fr_320px] gap-8 mt-8">
-          <div className="space-y-8">
+        <div className="grid lg:grid-cols-[1fr_320px] gap-6 lg:gap-8 mt-6 lg:mt-8">
+          <div className="space-y-6 lg:space-y-8">
             <Statistics
               bedsCount={settingMap.beds_count}
               treatedCount={settingMap.treated_2025}

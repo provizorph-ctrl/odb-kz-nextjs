@@ -5,8 +5,8 @@ interface ContactData {
 
 export function Sidebar({ contacts }: { contacts: ContactData[] }) {
   return (
-    <aside className="space-y-6">
-      <div className="bg-white rounded-2xl p-6 shadow-soft border border-border/50">
+    <aside className="space-y-4 sm:space-y-6">
+      <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-soft border border-border/50">
         <h3 className="text-sm font-bold mb-4 flex items-center gap-2">
           <div className="w-1 h-5 bg-primary rounded-full" />
           Контакты
