@@ -36,7 +36,7 @@ export function Footer({ contacts, settingMap }: FooterProps) {
               <div>
                 <div className="text-lg font-bold leading-tight">ОДБ</div>
                 <div className="text-xs text-white/60 leading-tight">
-                  {settingMap.siteName || "Областная детская больница"}
+                  {settingMap.hospital_name || "Областная детская больница"}
                 </div>
               </div>
             </div>

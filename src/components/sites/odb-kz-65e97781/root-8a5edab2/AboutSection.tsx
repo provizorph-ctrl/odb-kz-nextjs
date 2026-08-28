@@ -1,4 +1,8 @@
-export function AboutSection() {
+interface AboutProps {
+  description?: string;
+}
+
+export function AboutSection({ description }: AboutProps) {
   return (
     <section className="py-4">
       <div className="grid md:grid-cols-2 gap-8 items-start">
@@ -11,13 +15,10 @@ export function AboutSection() {
             Туркестанская областная многопрофильная детская больница
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            Туркестанская областная многопрофильная детская больница — это
-            ведущее медицинское учреждение региона, предоставляющее
-            квалифицированную помощь детям с 2021 года. Наша больница оснащена
-            современным оборудованием и имеет квалифицированный персонал.
+            {description || "Информация о деятельности Областной детской больницы. Областная детская больница Туркестанской области — крупный многопрофильный стационар на 422 коек, в котором сосредоточены все виды специализированной медицинской помощи детям."}
           </p>
           <a
-            href="#"
+            href="/o-nas"
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-xl text-sm font-medium hover:bg-primary/90 transition-all shadow-soft hover:shadow-medium hover:-translate-y-0.5"
           >
             Подробнее

@@ -1,13 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { StatisticItem } from "@/types/odb-kz";
 
-const stats: StatisticItem[] = [
-  { icon: "bed", number: "422", title: "коек" },
-  { icon: "patients", number: "20332", title: "пролечено" },
-  { icon: "admitted", number: "75929", title: "принято" },
-];
+interface StatProps {
+  bedsCount?: string;
+  treatedCount?: string;
+  kdcCount?: string;
+}
 
 function AnimatedNumber({ target }: { target: string }) {
   const [count, setCount] = useState(0);
@@ -15,6 +14,7 @@ function AnimatedNumber({ target }: { target: string }) {
   const targetNum = parseInt(target, 10);
 
   useEffect(() => {
+    if (isNaN(targetNum)) return;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -38,16 +38,20 @@ function AnimatedNumber({ target }: { target: string }) {
       },
       { threshold: 0.5 }
     );
-
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, [targetNum]);
 
-  const formatted = count.toLocaleString("ru-RU");
-  return <span ref={ref}>{formatted}</span>;
+  return <span ref={ref}>{count.toLocaleString("ru-RU")}</span>;
 }
 
-export function Statistics() {
+export function Statistics({ bedsCount = "422", treatedCount = "20332", kdcCount = "75929" }: StatProps) {
+  const stats = [
+    { icon: "bed", number: bedsCount, title: "коек" },
+    { icon: "patients", number: treatedCount, title: "пролечено" },
+    { icon: "admitted", number: kdcCount, title: "принято" },
+  ];
+
   return (
     <section className="py-6">
       <div className="grid grid-cols-3 gap-4">
@@ -55,14 +59,9 @@ export function Statistics() {
           <div
             key={stat.title}
             className="relative flex flex-col items-center text-center gap-3 p-6 rounded-2xl bg-white shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 border border-border/50"
-            style={{ animationDelay: `${index * 100}ms` }}
           >
             <div className="size-14 flex items-center justify-center rounded-2xl bg-primary/10">
-              <svg
-                className="size-7 text-primary"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
+              <svg className="size-7 text-primary" fill="currentColor" viewBox="0 0 24 24">
                 {stat.icon === "bed" && (
                   <path d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1zM10 6a2 2 0 0 1 4 0v1h-4V6z" />
                 )}

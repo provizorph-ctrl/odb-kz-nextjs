@@ -46,8 +46,12 @@ export default async function Home() {
         <HeroSlider />
         <div className="grid lg:grid-cols-[1fr_320px] gap-8 mt-8">
           <div className="space-y-8">
-            <Statistics />
-            <AboutSection />
+            <Statistics
+              bedsCount={settingMap.beds_count}
+              treatedCount={settingMap.treated_2025}
+              kdcCount={settingMap.kdc_patients}
+            />
+            <AboutSection description={settingMap.site_description} />
             <DepartmentsMenu departments={departments} />
             <NewsModule news={news} />
             <PhotoGallery />
