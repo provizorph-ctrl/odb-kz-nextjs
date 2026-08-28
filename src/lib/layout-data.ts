@@ -3,6 +3,8 @@ import { query } from "@/lib/db";
 interface MenuRow {
   id: string;
   label: string;
+  labelEn?: string;
+  labelKz?: string;
   url: string;
   parentId: string | null;
   sortOrder: number;
@@ -27,7 +29,7 @@ export interface LayoutData {
 export async function getLayoutData(): Promise<LayoutData> {
   const [menuItems, contacts, settings] = await Promise.all([
     query<MenuRow>(
-      'SELECT id, label, url, "parentId", "sortOrder" FROM "MenuItem" WHERE "isPublished" = true ORDER BY "sortOrder" ASC'
+      'SELECT id, label, "labelEn", "labelKz", url, "parentId", "sortOrder" FROM "MenuItem" WHERE "isPublished" = true ORDER BY "sortOrder" ASC'
     ),
     query<ContactRow>(
       'SELECT label, value FROM "Contact" ORDER BY "sortOrder" ASC'

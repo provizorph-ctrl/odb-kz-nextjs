@@ -1,6 +1,8 @@
 interface MenuItemData {
   id: string;
   label: string;
+  labelEn?: string;
+  labelKz?: string;
   url: string;
   parentId: string | null;
   sortOrder: number;
@@ -12,6 +14,16 @@ interface ContactData {
   value: string;
 }
 
+import { useLang } from "@/lib/lang-context";
+
+function langLabel(item: MenuItemData, lang: string) {
+  switch (lang) {
+    case "en": return item.labelEn || item.label;
+    case "kz": return item.labelKz || item.label;
+    default: return item.label;
+  }
+}
+
 export function Header({
   menu,
   contacts,
@@ -19,6 +31,7 @@ export function Header({
   menu: MenuItemData[];
   contacts: ContactData[];
 }) {
+  const { lang, setLang } = useLang();
   return (
     <header className="sticky top-0 z-50">
       <div className="bg-primary text-white">
@@ -71,18 +84,18 @@ export function Header({
 
           <div className="hidden lg:flex items-center gap-3">
             <div className="flex items-center gap-1 text-xs">
-              {["RU", "EN", "KZ"].map((lang, i) => (
-                <a
-                  key={lang}
-                  href={i === 0 ? "/" : `/${lang.toLowerCase()}/`}
+              {(["ru", "en", "kz"] as const).map((l) => (
+                <button
+                  key={l}
+                  onClick={() => setLang(l)}
                   className={`px-2.5 py-1 rounded-md text-xs font-medium transition-all ${
-                    i === 0
+                    lang === l
                       ? "bg-primary text-white"
                       : "text-muted-foreground hover:bg-primary/10 hover:text-primary"
                   }`}
                 >
-                  {lang}
-                </a>
+                  {l.toUpperCase()}
+                </button>
               ))}
             </div>
 
@@ -104,7 +117,7 @@ export function Header({
                   href={item.url}
                   className="flex items-center gap-1 px-3.5 py-3 text-sm font-medium text-foreground hover:text-primary transition-colors whitespace-nowrap"
                 >
-                  {item.label}
+                  {langLabel(item, lang)}
                   {item.children && item.children.length > 0 && (
                     <svg className="size-3.5 opacity-50 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -119,7 +132,7 @@ export function Header({
                           href={child.url}
                           className="block px-4 py-2.5 text-sm text-foreground hover:bg-primary/5 hover:text-primary transition-colors"
                         >
-                          {child.label}
+                          {langLabel(child, lang)}
                         </a>
                       </li>
                     ))}
