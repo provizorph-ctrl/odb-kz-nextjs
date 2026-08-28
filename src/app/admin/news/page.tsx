@@ -1,10 +1,17 @@
-import { prisma } from "@/lib/prisma";
+import { query } from "@/lib/db";
 import Link from "next/link";
 
+interface NewsRow {
+  id: string;
+  title: string;
+  date: string;
+  isPublished: boolean;
+}
+
 export default async function AdminNews() {
-  const news = await prisma.news.findMany({
-    orderBy: { date: "desc" },
-  });
+  const news = await query<NewsRow>(
+    'SELECT id, title, "date", "isPublished" FROM "News" ORDER BY "date" DESC'
+  );
 
   return (
     <div>
@@ -28,11 +35,18 @@ export default async function AdminNews() {
             </tr>
           </thead>
           <tbody>
-            {news.map((item: { id: string; title: string; date: Date; isPublished: boolean }) => (
+            {news.length === 0 && (
+              <tr>
+                <td colSpan={4} className="p-4 text-center text-gray-500">
+                  Новостей пока нет
+                </td>
+              </tr>
+            )}
+            {news.map((item) => (
               <tr key={item.id} className="border-b border-gray-100">
                 <td className="p-4">{item.title}</td>
                 <td className="p-4 text-gray-500">
-                  {item.date.toLocaleDateString("ru-RU")}
+                  {new Date(item.date).toLocaleDateString("ru-RU")}
                 </td>
                 <td className="p-4">
                   <span

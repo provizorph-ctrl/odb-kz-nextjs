@@ -1,18 +1,22 @@
-import { prisma } from "@/lib/prisma";
+import { query } from "@/lib/db";
+
+interface CountResult {
+  count: string;
+}
 
 export default async function AdminDashboard() {
   const [pages, news, departments, doctors] = await Promise.all([
-    prisma.page.count(),
-    prisma.news.count(),
-    prisma.department.count(),
-    prisma.doctor.count(),
+    query<CountResult>('SELECT COUNT(*) as count FROM "Page"'),
+    query<CountResult>('SELECT COUNT(*) as count FROM "News"'),
+    query<CountResult>('SELECT COUNT(*) as count FROM "Department"'),
+    query<CountResult>('SELECT COUNT(*) as count FROM "Doctor"'),
   ]);
 
   const stats = [
-    { label: "Страницы", value: pages, icon: "📄", href: "/admin/pages" },
-    { label: "Новости", value: news, icon: "📰", href: "/admin/news" },
-    { label: "Отделения", value: departments, icon: "🏥", href: "/admin/departments" },
-    { label: "Врачи", value: doctors, icon: "👨‍⚕️", href: "/admin/departments" },
+    { label: "Страницы", value: pages[0]?.count || "0", icon: "📄", href: "/admin/pages" },
+    { label: "Новости", value: news[0]?.count || "0", icon: "📰", href: "/admin/news" },
+    { label: "Отделения", value: departments[0]?.count || "0", icon: "🏥", href: "/admin/departments" },
+    { label: "Врачи", value: doctors[0]?.count || "0", icon: "👨‍⚕️", href: "/admin/departments" },
   ];
 
   return (

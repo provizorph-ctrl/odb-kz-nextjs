@@ -1,10 +1,17 @@
-import { prisma } from "@/lib/prisma";
+import { query } from "@/lib/db";
 import Link from "next/link";
 
+interface PageRow {
+  id: string;
+  title: string;
+  slug: string;
+  isPublished: boolean;
+}
+
 export default async function AdminPages() {
-  const pages = await prisma.page.findMany({
-    orderBy: { sortOrder: "asc" },
-  });
+  const pages = await query<PageRow>(
+    'SELECT id, title, slug, "isPublished" FROM "Page" ORDER BY "sortOrder" ASC'
+  );
 
   return (
     <div>
@@ -28,7 +35,14 @@ export default async function AdminPages() {
             </tr>
           </thead>
           <tbody>
-            {pages.map((page: { id: string; title: string; slug: string; isPublished: boolean }) => (
+            {pages.length === 0 && (
+              <tr>
+                <td colSpan={4} className="p-4 text-center text-gray-500">
+                  Страниц пока нет
+                </td>
+              </tr>
+            )}
+            {pages.map((page) => (
               <tr key={page.id} className="border-b border-gray-100">
                 <td className="p-4">{page.title}</td>
                 <td className="p-4 text-gray-500">/{page.slug}</td>

@@ -1,11 +1,19 @@
-import { prisma } from "@/lib/prisma";
+import { query } from "@/lib/db";
 import Link from "next/link";
 
+interface DeptRow {
+  id: string;
+  name: string;
+  isPublished: boolean;
+  doctor_count: string;
+}
+
 export default async function AdminDepartments() {
-  const departments = await prisma.department.findMany({
-    orderBy: { sortOrder: "asc" },
-    include: { _count: { select: { doctors: true } } },
-  });
+  const departments = await query<DeptRow>(
+    `SELECT d.id, d.name, d."isPublished",
+      (SELECT COUNT(*)::text FROM "Doctor" doc WHERE doc."departmentId" = d.id) as doctor_count
+     FROM "Department" d ORDER BY d."sortOrder" ASC`
+  );
 
   return (
     <div>
@@ -29,11 +37,11 @@ export default async function AdminDepartments() {
             </tr>
           </thead>
           <tbody>
-            {departments.map((dept: { id: string; name: string; isPublished: boolean; _count: { doctors: number } }) => (
+            {departments.map((dept) => (
               <tr key={dept.id} className="border-b border-gray-100">
                 <td className="p-4">{dept.name}</td>
                 <td className="p-4 text-gray-500">
-                  {dept._count.doctors} врачей
+                  {dept.doctor_count} врачей
                 </td>
                 <td className="p-4">
                   <span
