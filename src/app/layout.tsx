@@ -1,15 +1,22 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Figtree, Noto_Sans } from "next/font/google";
 import "./globals.css";
 import { ClientProviders } from "@/components/ClientProviders";
 
-const inter = Inter({
-  variable: "--font-inter",
+const figtree = Figtree({
+  variable: "--font-figtree",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const notoSans = Noto_Sans({
+  variable: "--font-noto-sans",
   subsets: ["latin", "cyrillic"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Главная - Областная детская больница",
+  title: "Областная детская больница — ОДБ Туркестан",
   description:
     "Областная детская больница Туркестанской области — многопрофильное медицинское учреждение для детей",
   icons: {
@@ -31,9 +38,12 @@ export default function RootLayout({
   return (
     <html
       lang="ru"
-      className={`${inter.variable} h-full antialiased`}
+      className={`${figtree.variable} ${notoSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col overflow-x-hidden">
+        <a href="#main-content" className="skip-link">
+          Перейти к основному содержимому
+        </a>
         <ClientProviders>{children}</ClientProviders>
       </body>
     </html>

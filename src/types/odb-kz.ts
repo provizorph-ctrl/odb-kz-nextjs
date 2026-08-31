@@ -31,6 +31,8 @@ export interface DepartmentItem {
 export interface GalleryCategory {
   id: string;
   name: string;
+  nameEn?: string;
+  nameKz?: string;
   isActive?: boolean;
 }
 
@@ -46,6 +48,8 @@ export interface GovProgram {
   id: string;
   image: string;
   title: string;
+  titleEn?: string;
+  titleKz?: string;
   url: string;
 }
 

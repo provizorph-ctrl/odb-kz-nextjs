@@ -25,8 +25,8 @@ export default async function CmsPage({ slug }: { slug: string }) {
   return (
     <>
       <Header menu={menu} contacts={contacts} />
-      <main className="container mx-auto px-4 py-8">
-        <div className="page-header mb-8">
+      <main id="main-content" className="container mx-auto px-4 py-8">
+        <div className="mb-8">
           <CmsContent
             title={page?.title || slug}
             titleEn={page?.titleEn}
@@ -41,7 +41,7 @@ export default async function CmsPage({ slug }: { slug: string }) {
             contentKz={page.contentKz}
           />
         ) : (
-          <p className="text-muted-foreground">Страница в разработке</p>
+          <p className="text-muted-foreground">Страница в разработке / Page under development / Бет әзірленуде</p>
         )}
       </main>
       <Footer contacts={contacts} settingMap={settingMap} />

@@ -32,15 +32,15 @@ export function CmsContent({
 
   if (content !== undefined) {
     return (
-      <div className="prose prose-lg max-w-4xl" dangerouslySetInnerHTML={{ __html: displayContent || "" }} />
+      <div className="prose prose-lg max-w-4xl prose-headings:font-[family-name:var(--font-heading)] prose-a:text-primary prose-a:no-underline hover:prose-a:underline" dangerouslySetInnerHTML={{ __html: displayContent || "" }} />
     );
   }
 
   return (
     <>
-      <h1 className="text-2xl sm:text-3xl font-bold text-foreground">{displayTitle}</h1>
+      <h1 className="text-2xl sm:text-3xl font-bold text-foreground font-[family-name:var(--font-heading)]">{displayTitle}</h1>
       {hospitalName && (
-        <h2 className="text-lg sm:text-xl text-primary mt-2">{hospitalName}</h2>
+        <h2 className="text-lg sm:text-xl text-primary mt-2 font-[family-name:var(--font-heading)]">{hospitalName}</h2>
       )}
     </>
   );

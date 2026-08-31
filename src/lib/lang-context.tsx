@@ -1,34 +1,31 @@
 "use client";
 
 import { createContext, useContext, useState, ReactNode } from "react";
-
-type Lang = "ru" | "en" | "kz";
+import { t as translate, type Lang, type TranslationKey } from "@/lib/translations";
 
 interface LangContextType {
   lang: Lang;
   setLang: (l: Lang) => void;
-  t: (ru: string, en?: string, kz?: string) => string;
+  t: (key: TranslationKey) => string;
+  locale: string;
 }
 
 const LangContext = createContext<LangContextType>({
   lang: "ru",
   setLang: () => {},
-  t: (ru) => ru,
+  t: (key) => key,
+  locale: "ru-RU",
 });
 
 export function LangProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>("ru");
 
-  const t = (ru: string, en?: string, kz?: string) => {
-    switch (lang) {
-      case "en": return en || ru;
-      case "kz": return kz || ru;
-      default: return ru;
-    }
-  };
+  const locale = lang === "en" ? "en-US" : lang === "kz" ? "kk-KZ" : "ru-RU";
+
+  const t = (key: TranslationKey) => translate(lang, key);
 
   return (
-    <LangContext.Provider value={{ lang, setLang, t }}>
+    <LangContext.Provider value={{ lang, setLang, t, locale }}>
       {children}
     </LangContext.Provider>
   );
