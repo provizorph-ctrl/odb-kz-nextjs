@@ -3,13 +3,11 @@
 import { useState } from "react";
 import { useLang } from "@/lib/lang-context";
 
-const ADDRESS = "Шымкент, Нурсат 125/1";
-
 const NAV_LINKS = [
   {
     id: "2gis",
     label: "2ГИС",
-    url: `https://2gis.kz/shymkent/search/${encodeURIComponent(ADDRESS)}`,
+    url: "https://2gis.kz/shymkent/search/%D0%A8%D1%8B%D0%BC%D0%BA%D0%B5%D0%BD%D1%82%2C%20%D0%9D%D1%83%D1%80%D1%81%D0%B0%D1%82%20125%2F1/firm/70000001026512657/69.62314%2C42.359543?m=69.624159%2C42.358685%2F18",
     color: "#2ba470",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -20,7 +18,7 @@ const NAV_LINKS = [
   {
     id: "yandex",
     label: "Яндекс.Карты",
-    url: `https://yandex.ru/maps/?text=${encodeURIComponent(ADDRESS)}&ll=69.59,42.31&z=16`,
+    url: "https://yandex.kz/maps/221/chimkent/?ll=69.623383%2C42.358832&mode=poi&poi%5Bpoint%5D=69.622838%2C42.359420&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D218243568595&z=18",
     color: "#fc3f1d",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -31,7 +29,7 @@ const NAV_LINKS = [
   {
     id: "google",
     label: "Google Карты",
-    url: `https://www.google.com/maps/search/${encodeURIComponent(ADDRESS)}/@42.31,69.59,16z`,
+    url: "https://www.google.com/maps/place/%D0%9E%D0%B1%D0%BB%D1%8B%D1%81%D1%82%D1%8B%D2%9B+%D0%B1%D0%B0%D0%BB%D0%B0%D0%BB%D0%B0%D1%80+%D0%B5%D0%BC%D1%85%D0%B0%D0%BD%D0%B0%D1%81%D1%8B/@42.3594447,69.6134171,16z/data=!4m10!1m2!2m1!1z0KjRi9C80LrQtdC90YIsINCd0YPRgNGB0LDRgiAxMjUvMQ!3m6!1s0x38a91dab229ffeab:0xfcd594189f06022!8m2!3d42.3594447!4d69.6229443!15sCiLQqNGL0LzQutC10L3Rgiwg0J3Rg9GA0YHQsNGCIDEyNS8xkgEIaG9zcGl0YWzgAQA!16s%2Fg%2F11bwpb_t61?entry=ttu&g_ep=EgoyMDI2MDgyNi4wIKXMDSoASAFQAw%3D%3D",
     color: "#4285f4",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
