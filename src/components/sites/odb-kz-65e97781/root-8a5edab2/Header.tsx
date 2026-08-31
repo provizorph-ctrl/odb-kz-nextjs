@@ -65,10 +65,8 @@ export function Header({
       <div className="bg-white shadow-soft border-b border-border/50">
         <div className="container mx-auto px-4 flex items-center justify-between py-3">
           <a href="/" className="flex items-center gap-2 sm:gap-3 group">
-            <div className="size-9 sm:size-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/15 transition-colors">
-              <svg className="size-5 sm:size-7 text-primary" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-              </svg>
+            <div className="size-9 sm:size-12 rounded-xl overflow-hidden flex items-center justify-center shrink-0">
+              <img src="/images/logo.jpeg" alt="ОДБ" className="w-full h-full object-contain" />
             </div>
             <div>
               <div className="text-base sm:text-lg font-bold text-primary leading-tight font-[family-name:var(--font-heading)]">{t("hospitalShort")}</div>

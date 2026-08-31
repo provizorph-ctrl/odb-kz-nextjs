@@ -34,10 +34,8 @@ export function Footer({ contacts, settingMap }: FooterProps) {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mb-8">
           <div className="col-span-2 md:col-span-1 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="size-10 rounded-xl bg-white/10 flex items-center justify-center">
-                <svg className="size-6 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-                </svg>
+              <div className="size-10 rounded-xl overflow-hidden flex items-center justify-center shrink-0">
+                <img src="/images/logo.jpeg" alt="ОДБ" className="w-full h-full object-contain" />
               </div>
               <div>
                 <div className="text-lg font-bold leading-tight font-[family-name:var(--font-heading)]">{t("hospitalShort")}</div>

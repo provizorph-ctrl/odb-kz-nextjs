@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Областная детская больница Туркестанской области — многопрофильное медицинское учреждение для детей",
   icons: {
-    icon: "/images/favicon-32x32.png",
+    icon: "/images/logo.jpeg",
   },
 };
 
