@@ -35,34 +35,6 @@ export function Header({
   contacts: ContactData[];
 }) {
   const { lang, setLang, t } = useLang();
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
-  const [menuHeight, setMenuHeight] = useState(0);
-
-  const recalcHeight = useCallback(() => {
-    if (menuRef.current) {
-      setMenuHeight(menuRef.current.scrollHeight);
-    }
-  }, []);
-
-  useEffect(() => {
-    recalcHeight();
-  }, [mobileOpen, lang, recalcHeight]);
-
-  useEffect(() => {
-    const onResize = () => recalcHeight();
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, [recalcHeight]);
-
-  useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => { document.body.style.overflow = ""; };
-  }, [mobileOpen]);
 
   return (
     <header className="sticky top-0 z-50 w-full">
@@ -90,40 +62,104 @@ export function Header({
 
       {/* Main header */}
       <div className="bg-white/95 backdrop-blur-md shadow-soft border-b border-border/50">
-        <div className="max-w-[1200px] mx-auto px-4 flex items-center justify-between py-3">
-          {/* Logo — tapping toggles mobile menu on small screens */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="flex items-center gap-2 sm:gap-3 group min-w-0 text-left lg:pointer-events-none"
-            aria-expanded={mobileOpen}
-            aria-label={t("hospitalShort")}
-          >
-            <div className="size-9 sm:size-11 rounded-xl overflow-hidden shrink-0">
-              <img src="/images/logo.jpeg" alt="ОДБ" className="w-full h-full object-contain" />
-            </div>
-            <div className="min-w-0">
-              <div className="text-sm sm:text-lg font-bold text-primary leading-tight font-[family-name:var(--font-heading)] truncate">{t("hospitalShort")}</div>
-              <div className="text-xs sm:text-xs text-muted-foreground leading-tight truncate">{t("hospitalFullName")}</div>
-            </div>
-          </button>
+        <div className="max-w-[1200px] mx-auto px-4 py-3">
 
-          {/* Lang switcher — always visible */}
-          <div className="flex items-center gap-1 sm:gap-1.5 shrink-0" role="group" aria-label="Language switcher">
-            {(["ru", "en", "kz"] as const).map((l) => (
-              <button
-                key={l}
-                onClick={() => setLang(l)}
-                aria-pressed={lang === l}
-                className="min-w-[36px] h-9 px-2 sm:px-2.5 rounded-md text-xs font-medium transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-                style={{
-                  backgroundColor: lang === l ? "var(--primary)" : "transparent",
-                  color: lang === l ? "white" : "var(--muted-foreground)",
-                }}
-              >
-                {l.toUpperCase()}
-              </button>
-            ))}
+          {/* Desktop layout */}
+          <div className="hidden lg:flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="size-11 rounded-xl overflow-hidden shrink-0">
+                <img src="/images/logo.jpeg" alt="ОДБ" className="w-full h-full object-contain" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-lg font-bold text-primary leading-tight font-[family-name:var(--font-heading)] truncate">{t("hospitalShort")}</div>
+                <div className="text-xs text-muted-foreground leading-tight truncate">{t("hospitalFullName")}</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-1.5 shrink-0" role="group" aria-label="Language switcher">
+              {(["ru", "en", "kz"] as const).map((l) => (
+                <button
+                  key={l}
+                  onClick={() => setLang(l)}
+                  aria-pressed={lang === l}
+                  className="min-w-[36px] h-9 px-2.5 rounded-md text-xs font-medium transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  style={{
+                    backgroundColor: lang === l ? "var(--primary)" : "transparent",
+                    color: lang === l ? "white" : "var(--muted-foreground)",
+                  }}
+                >
+                  {l.toUpperCase()}
+                </button>
+              ))}
+            </div>
           </div>
+
+          {/* Mobile layout — native details/summary */}
+          <details className="lg:hidden">
+            <summary className="flex items-center justify-between cursor-pointer list-none [&::-webkit-details-marker]:hidden [&::marker]:hidden">
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="size-9 rounded-xl overflow-hidden shrink-0">
+                  <img src="/images/logo.jpeg" alt="ОДБ" className="w-full h-full object-contain" />
+                </div>
+                <div className="min-w-0">
+                  <div className="text-sm font-bold text-primary leading-tight font-[family-name:var(--font-heading)] truncate">{t("hospitalShort")}</div>
+                  <div className="text-xs text-muted-foreground leading-tight truncate">{t("hospitalFullName")}</div>
+                </div>
+              </div>
+              <svg className="w-5 h-5 text-muted-foreground shrink-0 ml-2 transition-transform duration-200 open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+
+            {/* Mobile nav content */}
+            <nav className="mt-3 pt-3 border-t border-border/50" aria-label="Mobile navigation">
+              {/* Lang switcher */}
+              <div className="flex items-center gap-1 mb-3" role="group" aria-label="Language switcher">
+                {(["ru", "en", "kz"] as const).map((l) => (
+                  <button
+                    key={l}
+                    onClick={(e) => { e.stopPropagation(); setLang(l); }}
+                    aria-pressed={lang === l}
+                    className="min-w-[36px] h-9 px-2.5 rounded-md text-xs font-medium transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                    style={{
+                      backgroundColor: lang === l ? "var(--primary)" : "transparent",
+                      color: lang === l ? "white" : "var(--muted-foreground)",
+                    }}
+                  >
+                    {l.toUpperCase()}
+                  </button>
+                ))}
+              </div>
+              {/* Menu items */}
+              <ul className="space-y-0.5" role="menu">
+                {menu.map((item) => (
+                  <li key={item.id} role="none">
+                    <a
+                      href={item.url}
+                      role="menuitem"
+                      className="block px-3 py-3 text-sm font-medium text-foreground hover:bg-primary/5 hover:text-primary rounded-lg transition-colors min-w-0 break-words"
+                    >
+                      {langLabel(item, lang)}
+                    </a>
+                    {item.children && item.children.length > 0 && (
+                      <ul className="pl-4 space-y-0.5" role="menu">
+                        {item.children.map((child) => (
+                          <li key={child.id} role="none">
+                            <a
+                              href={child.url}
+                              role="menuitem"
+                              className="block px-3 py-2.5 text-sm text-muted-foreground hover:text-primary transition-colors min-w-0 break-words"
+                            >
+                              {langLabel(child, lang)}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </details>
         </div>
       </div>
 
@@ -164,61 +200,6 @@ export function Header({
           </ul>
         </div>
       </nav>
-
-      {/* Mobile overlay */}
-      {mobileOpen && (
-        <div
-          className="lg:hidden fixed inset-0 top-[105px] bg-black/30 z-40"
-          onClick={() => setMobileOpen(false)}
-          aria-hidden="true"
-        />
-      )}
-
-      {/* Mobile nav — fixed max-height with scroll */}
-      <div
-        ref={menuRef}
-        className="lg:hidden bg-white border-b border-border/50 shadow-lg overflow-y-auto overflow-x-hidden"
-        style={{
-          maxHeight: mobileOpen ? "calc(100vh - 105px)" : "0px",
-          transition: "max-height 0.3s ease-in-out",
-        }}
-        aria-hidden={!mobileOpen}
-      >
-        <nav aria-label="Mobile navigation">
-          <div className="max-w-[1200px] mx-auto px-4 py-3">
-            <ul className="space-y-0.5" role="menu">
-              {menu.map((item) => (
-                <li key={item.id} role="none">
-                  <a
-                    href={item.url}
-                    onClick={() => setMobileOpen(false)}
-                    role="menuitem"
-                    className="block px-3 py-3 text-sm font-medium text-foreground hover:bg-primary/5 hover:text-primary rounded-lg transition-colors min-w-0 break-words"
-                  >
-                    {langLabel(item, lang)}
-                  </a>
-                  {item.children && item.children.length > 0 && (
-                    <ul className="pl-4 space-y-0.5" role="menu">
-                      {item.children.map((child) => (
-                        <li key={child.id} role="none">
-                          <a
-                            href={child.url}
-                            onClick={() => setMobileOpen(false)}
-                            role="menuitem"
-                            className="block px-3 py-2.5 text-sm text-muted-foreground hover:text-primary transition-colors min-w-0 break-words"
-                          >
-                            {langLabel(child, lang)}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </nav>
-      </div>
     </header>
   );
 }

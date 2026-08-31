@@ -54,7 +54,7 @@ export function PhotoGallery() {
         </a>
       </div>
 
-      <div className="flex gap-1.5 sm:gap-2 mb-3 sm:mb-5 overflow-x-auto pb-1 scrollbar-hide" role="tablist" aria-label="Gallery categories">
+      <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-5" role="tablist" aria-label="Gallery categories">
         {categories.map((cat) => (
           <button
             key={cat.id}
