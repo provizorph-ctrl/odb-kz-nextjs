@@ -61,10 +61,15 @@ export function HeroSlider() {
               pointerEvents: index === currentSlide ? "auto" : "none",
             }}
           >
-            <div className="w-full h-full bg-gradient-to-br from-primary/20 via-primary/10 to-primary/5 flex items-center justify-center">
-              <div className="text-center px-4 min-w-0">
-                <span className="text-primary/30 text-sm sm:text-2xl font-semibold tracking-wide font-[family-name:var(--font-heading)] break-words">{slide.alt}</span>
-              </div>
+            <div className="w-full h-full bg-gradient-to-br from-primary/20 via-primary/10 to-primary/5">
+              <img
+                src={slide.src}
+                alt={slide.alt}
+                width={slide.width}
+                height={slide.height}
+                className="w-full h-full object-cover"
+                loading={index === 0 ? "eager" : "lazy"}
+              />
             </div>
           </div>
         ))}

@@ -64,7 +64,12 @@ export function GovProgramsCarousel() {
             <div key={program.id} className="flex-shrink-0 px-1 sm:px-2" style={{ width: `${100 / visibleCount}%` }}>
               <a href={program.url} className="group block rounded-lg sm:rounded-2xl overflow-hidden bg-white border border-border/50 shadow-card hover:shadow-card-hover transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary touch-manipulation">
                 <div className="relative aspect-video overflow-hidden bg-muted">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-primary/5 group-hover:scale-105 transition-transform duration-500" />
+                  <img
+                    src={program.image}
+                    alt={langTitle(program, lang)}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
                 </div>
                 <div className="p-2.5 sm:p-4">
                   <span className="text-xs sm:text-sm font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2 leading-tight break-words">{langTitle(program, lang)}</span>
