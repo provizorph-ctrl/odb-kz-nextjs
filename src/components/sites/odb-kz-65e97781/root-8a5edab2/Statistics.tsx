@@ -42,17 +42,17 @@ export function Statistics({ stats }: { stats?: StatData[] }) {
           return (
             <div
               key={stat.title}
-              className="relative flex flex-col items-center text-center gap-1.5 sm:gap-3 p-2.5 sm:p-6 rounded-lg sm:rounded-2xl bg-white shadow-card border border-border/50"
+              className="relative flex flex-col items-center text-center gap-1.5 sm:gap-3 p-2 sm:p-6 rounded-lg sm:rounded-2xl bg-white shadow-card border border-border/50 min-w-0 overflow-hidden"
             >
-              <div className="size-9 sm:size-14 flex items-center justify-center rounded-lg sm:rounded-2xl bg-primary/10">
-                <svg className="size-4.5 sm:size-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <div className="w-10 h-10 sm:w-14 sm:h-14 flex items-center justify-center rounded-lg sm:rounded-2xl bg-primary/10 shrink-0">
+                <svg className="w-5 h-5 sm:w-7 sm:h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={path} />
                 </svg>
               </div>
               <div className="text-lg sm:text-3xl font-bold text-primary tracking-tight font-[family-name:var(--font-heading)]" aria-label={`${stat.count.toLocaleString(locale)} ${langTitle(stat, lang)}`}>
                 {stat.count.toLocaleString(locale)}
               </div>
-              <div className="text-[11px] sm:text-sm font-medium text-muted-foreground leading-tight">
+              <div className="text-xs sm:text-sm font-medium text-muted-foreground leading-tight break-words">
                 {langTitle(stat, lang)}
               </div>
             </div>

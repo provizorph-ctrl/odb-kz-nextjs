@@ -253,6 +253,15 @@
     touch-action: pan-y;
   }
 
+.hero-slider .hero-aspect-wrapper {
+  aspect-ratio: 4 / 3;
+}
+@media (min-width: 640px) {
+  .hero-slider .hero-aspect-wrapper {
+    aspect-ratio: 16 / 7;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
     animation-duration: 0.01ms !important;

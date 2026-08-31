@@ -37,7 +37,7 @@ export function HeroSlider() {
 
   return (
     <section
-      className="relative w-full overflow-hidden rounded-lg sm:rounded-2xl bg-muted shadow-medium"
+      className="relative w-full overflow-hidden rounded-lg sm:rounded-2xl bg-muted shadow-medium hero-slider"
       role="region"
       aria-roledescription="carousel"
       aria-label={t("slide1")}
@@ -46,8 +46,7 @@ export function HeroSlider() {
       onTouchStart={() => setIsPaused(true)}
       onTouchEnd={() => setIsPaused(false)}
     >
-      {/* Fixed aspect ratio — no layout shift */}
-      <div className="relative w-full" style={{ aspectRatio: "16 / 7" }}>
+      <div className="relative w-full hero-aspect-wrapper">
         {slides.map((slide, index) => (
           <div
             key={slide.src}
@@ -63,8 +62,8 @@ export function HeroSlider() {
             }}
           >
             <div className="w-full h-full bg-gradient-to-br from-primary/20 via-primary/10 to-primary/5 flex items-center justify-center">
-              <div className="text-center px-4">
-                <span className="text-primary/30 text-sm sm:text-2xl font-semibold tracking-wide font-[family-name:var(--font-heading)]">{slide.alt}</span>
+              <div className="text-center px-4 min-w-0">
+                <span className="text-primary/30 text-sm sm:text-2xl font-semibold tracking-wide font-[family-name:var(--font-heading)] break-words">{slide.alt}</span>
               </div>
             </div>
           </div>
@@ -73,10 +72,9 @@ export function HeroSlider() {
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent z-20 pointer-events-none" />
 
-      {/* Prev button */}
       <button
         onClick={prevSlide}
-        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 size-8 sm:size-10 flex items-center justify-center rounded-full bg-white/90 hover:bg-white text-foreground shadow-medium z-30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary touch-manipulation"
+        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-white/90 hover:bg-white text-foreground shadow-medium z-30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary touch-manipulation"
         aria-label={t("prevSlide")}
       >
         <svg className="size-4 sm:size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -84,10 +82,9 @@ export function HeroSlider() {
         </svg>
       </button>
 
-      {/* Next button */}
       <button
         onClick={nextSlide}
-        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 size-8 sm:size-10 flex items-center justify-center rounded-full bg-white/90 hover:bg-white text-foreground shadow-medium z-30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary touch-manipulation"
+        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-white/90 hover:bg-white text-foreground shadow-medium z-30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary touch-manipulation"
         aria-label={t("nextSlide")}
       >
         <svg className="size-4 sm:size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -95,8 +92,7 @@ export function HeroSlider() {
         </svg>
       </button>
 
-      {/* Dots */}
-      <div className="absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2.5 z-30" role="tablist" aria-label="Slides">
+      <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2.5 z-30" role="tablist" aria-label="Slides">
         {slides.map((_, index) => (
           <button
             key={index}
@@ -113,8 +109,7 @@ export function HeroSlider() {
         ))}
       </div>
 
-      {/* Counter */}
-      <div className="absolute top-2 sm:top-4 right-2 sm:right-4 z-30 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-black/30 backdrop-blur-sm text-white text-[10px] sm:text-xs font-medium" aria-live="polite">
+      <div className="absolute top-2 sm:top-4 right-2 sm:right-4 z-30 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-black/30 backdrop-blur-sm text-white text-xs font-medium" aria-live="polite">
         {currentSlide + 1} / {slides.length}
       </div>
     </section>

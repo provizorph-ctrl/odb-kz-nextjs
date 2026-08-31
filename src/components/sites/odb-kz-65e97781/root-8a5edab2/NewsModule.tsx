@@ -24,12 +24,12 @@ export function NewsModule({ news }: { news: NewsData[] }) {
 
   return (
     <section className="bg-white rounded-lg sm:rounded-2xl p-3 sm:p-6 shadow-soft border border-border/50">
-      <div className="flex items-center justify-between mb-3 sm:mb-4">
-        <h2 className="text-base sm:text-2xl font-bold text-foreground flex items-center gap-2 font-[family-name:var(--font-heading)]">
-          <div className="w-1 h-5 sm:h-6 bg-primary rounded-full" aria-hidden="true" />
-          {t("newsTitle")}
+      <div className="flex items-center justify-between mb-3 sm:mb-4 gap-2 min-w-0">
+        <h2 className="text-base sm:text-2xl font-bold text-foreground flex items-center gap-2 font-[family-name:var(--font-heading)] min-w-0">
+          <div className="w-1 h-5 sm:h-6 bg-primary rounded-full shrink-0" aria-hidden="true" />
+          <span className="truncate">{t("newsTitle")}</span>
         </h2>
-        <a href="/news-ru" className="text-xs sm:text-sm text-primary hover:underline font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+        <a href="/news-ru" className="text-xs sm:text-sm text-primary hover:underline font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary shrink-0">
           {t("allNews")}
         </a>
       </div>
@@ -41,20 +41,20 @@ export function NewsModule({ news }: { news: NewsData[] }) {
           <a
             key={item.slug}
             href={`/news-ru/${item.slug}`}
-            className="block p-2.5 sm:p-4 rounded-lg sm:rounded-xl hover:bg-primary/5 transition-colors border border-transparent hover:border-primary/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary touch-manipulation"
+            className="block p-2.5 sm:p-4 rounded-lg sm:rounded-xl hover:bg-primary/5 transition-colors border border-transparent hover:border-primary/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary touch-manipulation min-w-0"
           >
-            <div className="text-[11px] sm:text-xs text-muted-foreground mb-0.5 sm:mb-1">
+            <div className="text-xs sm:text-xs text-muted-foreground mb-0.5 sm:mb-1">
               {new Date(item.date).toLocaleDateString(locale, {
                 day: "numeric",
                 month: "long",
                 year: "numeric",
               })}
             </div>
-            <h3 className="text-xs sm:text-sm font-semibold mb-0.5 sm:mb-1 leading-tight">
+            <h3 className="text-xs sm:text-sm font-semibold mb-0.5 sm:mb-1 leading-tight min-w-0 break-words">
               {langField(item, "title")}
             </h3>
             {item.description && (
-              <p className="text-[11px] sm:text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+              <p className="text-xs sm:text-xs text-muted-foreground line-clamp-2 leading-relaxed break-words">
                 {langField(item, "description")}
               </p>
             )}

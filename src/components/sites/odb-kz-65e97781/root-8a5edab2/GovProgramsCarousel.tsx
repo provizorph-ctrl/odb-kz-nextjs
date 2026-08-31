@@ -43,17 +43,17 @@ export function GovProgramsCarousel() {
 
   return (
     <section className="py-3 sm:py-4" aria-label={t("govProgramsTitle")}>
-      <div className="flex items-center justify-between mb-3 sm:mb-5">
-        <div className="flex items-center gap-2">
-          <div className="section-decoration" aria-hidden="true" />
-          <h2 className="text-base sm:text-2xl font-bold text-foreground font-[family-name:var(--font-heading)]">{t("govProgramsTitle")}</h2>
+      <div className="flex items-center justify-between mb-3 sm:mb-5 gap-2 min-w-0">
+        <div className="flex items-center gap-2 min-w-0">
+          <div className="section-decoration shrink-0" aria-hidden="true" />
+          <h2 className="text-base sm:text-2xl font-bold text-foreground font-[family-name:var(--font-heading)] truncate">{t("govProgramsTitle")}</h2>
         </div>
-        <div className="flex items-center gap-1.5 sm:gap-2">
-          <button onClick={prev} disabled={currentIndex === 0} className="size-7 sm:size-9 flex items-center justify-center rounded-full border border-border hover:border-primary hover:text-primary transition-all disabled:opacity-30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary touch-manipulation" aria-label={t("prevSlideShort")}>
-            <svg className="size-3.5 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <button onClick={prev} disabled={currentIndex === 0} className="w-10 h-10 flex items-center justify-center rounded-full border border-border hover:border-primary hover:text-primary transition-all disabled:opacity-30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary touch-manipulation" aria-label={t("prevSlideShort")}>
+            <svg className="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
           </button>
-          <button onClick={next} disabled={currentIndex >= maxIndex} className="size-7 sm:size-9 flex items-center justify-center rounded-full border border-border hover:border-primary hover:text-primary transition-all disabled:opacity-30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary touch-manipulation" aria-label={t("nextSlideShort")}>
-            <svg className="size-3.5 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+          <button onClick={next} disabled={currentIndex >= maxIndex} className="w-10 h-10 flex items-center justify-center rounded-full border border-border hover:border-primary hover:text-primary transition-all disabled:opacity-30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary touch-manipulation" aria-label={t("nextSlideShort")}>
+            <svg className="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
           </button>
         </div>
       </div>
@@ -67,7 +67,7 @@ export function GovProgramsCarousel() {
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-primary/5 group-hover:scale-105 transition-transform duration-500" />
                 </div>
                 <div className="p-2.5 sm:p-4">
-                  <span className="text-xs sm:text-sm font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2 leading-tight">{langTitle(program, lang)}</span>
+                  <span className="text-xs sm:text-sm font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2 leading-tight break-words">{langTitle(program, lang)}</span>
                 </div>
               </a>
             </div>

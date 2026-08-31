@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useLang } from "@/lib/lang-context";
 
 interface MenuItemData {
@@ -39,11 +39,21 @@ export function Header({
   const menuRef = useRef<HTMLDivElement>(null);
   const [menuHeight, setMenuHeight] = useState(0);
 
-  useEffect(() => {
+  const recalcHeight = useCallback(() => {
     if (menuRef.current) {
       setMenuHeight(menuRef.current.scrollHeight);
     }
-  }, [mobileOpen]);
+  }, []);
+
+  useEffect(() => {
+    recalcHeight();
+  }, [mobileOpen, lang, recalcHeight]);
+
+  useEffect(() => {
+    const onResize = () => recalcHeight();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [recalcHeight]);
 
   useEffect(() => {
     if (mobileOpen) {
@@ -64,12 +74,12 @@ export function Header({
               <a
                 key={c.label}
                 href={`tel:${c.value.replace(/[^+0-9]/g, "")}`}
-                className="flex items-center gap-1.5 hover:text-white/80 transition-colors"
+                className="flex items-center gap-1.5 hover:text-white/80 transition-colors min-w-0"
               >
-                <svg className="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <svg className="size-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
-                <span className="font-medium">{c.value}</span>
+                <span className="font-medium truncate">{c.value}</span>
               </a>
             ))}
             <span className="text-white/40">|</span>
@@ -81,51 +91,39 @@ export function Header({
       {/* Main header */}
       <div className="bg-white/95 backdrop-blur-md shadow-soft border-b border-border/50">
         <div className="max-w-[1200px] mx-auto px-4 flex items-center justify-between py-3">
-          <a href="/" className="flex items-center gap-2 sm:gap-3 group min-w-0">
+          {/* Logo — tapping toggles mobile menu on small screens */}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="flex items-center gap-2 sm:gap-3 group min-w-0 text-left lg:pointer-events-none"
+            aria-expanded={mobileOpen}
+            aria-label={t("hospitalShort")}
+          >
             <div className="size-9 sm:size-11 rounded-xl overflow-hidden shrink-0">
               <img src="/images/logo.jpeg" alt="ОДБ" className="w-full h-full object-contain" />
             </div>
             <div className="min-w-0">
               <div className="text-sm sm:text-lg font-bold text-primary leading-tight font-[family-name:var(--font-heading)] truncate">{t("hospitalShort")}</div>
-              <div className="text-[10px] sm:text-xs text-muted-foreground leading-tight truncate">{t("hospitalFullName")}</div>
+              <div className="text-xs sm:text-xs text-muted-foreground leading-tight truncate">{t("hospitalFullName")}</div>
             </div>
-          </a>
-
-          {/* Desktop lang */}
-          <div className="hidden lg:flex items-center gap-3 shrink-0">
-            <div className="flex items-center gap-1 text-xs" role="group" aria-label="Language switcher">
-              {(["ru", "en", "kz"] as const).map((l) => (
-                <button
-                  key={l}
-                  onClick={() => setLang(l)}
-                  aria-pressed={lang === l}
-                  className={`px-2.5 py-1 rounded-md text-xs font-medium transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
-                    lang === l
-                      ? "bg-primary text-white"
-                      : "text-muted-foreground hover:bg-primary/10 hover:text-primary"
-                  }`}
-                >
-                  {l.toUpperCase()}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Burger */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden size-10 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-            aria-label={t("menuLabel")}
-            aria-expanded={mobileOpen}
-          >
-            <svg className="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              {mobileOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-              )}
-            </svg>
           </button>
+
+          {/* Lang switcher — always visible */}
+          <div className="flex items-center gap-1 sm:gap-1.5 shrink-0" role="group" aria-label="Language switcher">
+            {(["ru", "en", "kz"] as const).map((l) => (
+              <button
+                key={l}
+                onClick={() => setLang(l)}
+                aria-pressed={lang === l}
+                className="min-w-[36px] h-9 px-2 sm:px-2.5 rounded-md text-xs font-medium transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                style={{
+                  backgroundColor: lang === l ? "var(--primary)" : "transparent",
+                  color: lang === l ? "white" : "var(--muted-foreground)",
+                }}
+              >
+                {l.toUpperCase()}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -170,38 +168,24 @@ export function Header({
       {/* Mobile overlay */}
       {mobileOpen && (
         <div
-          className="lg:hidden fixed inset-0 top-[57px] bg-black/30 z-40"
+          className="lg:hidden fixed inset-0 top-[105px] bg-black/30 z-40"
           onClick={() => setMobileOpen(false)}
+          aria-hidden="true"
         />
       )}
 
-      {/* Mobile nav */}
+      {/* Mobile nav — fixed max-height with scroll */}
       <div
         ref={menuRef}
-        className="lg:hidden bg-white border-b border-border/50 shadow-lg overflow-hidden transition-[max-height] duration-300 ease-in-out"
-        style={{ maxHeight: mobileOpen ? `${menuHeight}px` : "0px" }}
+        className="lg:hidden bg-white border-b border-border/50 shadow-lg overflow-y-auto overflow-x-hidden"
+        style={{
+          maxHeight: mobileOpen ? "calc(100vh - 105px)" : "0px",
+          transition: "max-height 0.3s ease-in-out",
+        }}
         aria-hidden={!mobileOpen}
       >
         <nav aria-label="Mobile navigation">
           <div className="max-w-[1200px] mx-auto px-4 py-3">
-            {/* Lang switcher */}
-            <div className="flex items-center gap-2 mb-3 pb-3 border-b border-gray-100" role="group" aria-label="Language switcher">
-              {(["ru", "en", "kz"] as const).map((l) => (
-                <button
-                  key={l}
-                  onClick={() => setLang(l)}
-                  aria-pressed={lang === l}
-                  className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
-                    lang === l
-                      ? "bg-primary text-white"
-                      : "text-muted-foreground bg-gray-100 hover:bg-primary/10"
-                  }`}
-                >
-                  {l.toUpperCase()}
-                </button>
-              ))}
-            </div>
-            {/* Menu items */}
             <ul className="space-y-0.5" role="menu">
               {menu.map((item) => (
                 <li key={item.id} role="none">
@@ -209,7 +193,7 @@ export function Header({
                     href={item.url}
                     onClick={() => setMobileOpen(false)}
                     role="menuitem"
-                    className="block px-3 py-2.5 text-sm font-medium text-foreground hover:bg-primary/5 hover:text-primary rounded-lg transition-colors"
+                    className="block px-3 py-3 text-sm font-medium text-foreground hover:bg-primary/5 hover:text-primary rounded-lg transition-colors min-w-0 break-words"
                   >
                     {langLabel(item, lang)}
                   </a>
@@ -221,7 +205,7 @@ export function Header({
                             href={child.url}
                             onClick={() => setMobileOpen(false)}
                             role="menuitem"
-                            className="block px-3 py-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                            className="block px-3 py-2.5 text-sm text-muted-foreground hover:text-primary transition-colors min-w-0 break-words"
                           >
                             {langLabel(child, lang)}
                           </a>

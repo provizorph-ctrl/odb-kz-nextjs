@@ -33,7 +33,7 @@ export default async function Home() {
   return (
     <>
       <Header menu={menu} contacts={contacts} />
-      <main id="main-content" className="w-full max-w-[1200px] mx-auto px-4 py-3 sm:py-6">
+      <main id="main-content" className="w-full max-w-[1200px] mx-auto px-4 py-3 sm:py-6 overflow-hidden">
         <HeroSlider />
         <div className="grid lg:grid-cols-[1fr_320px] gap-3 sm:gap-4 lg:gap-8 mt-3 sm:mt-6 lg:mt-8">
           <div className="space-y-3 sm:space-y-4 lg:space-y-8 min-w-0">
