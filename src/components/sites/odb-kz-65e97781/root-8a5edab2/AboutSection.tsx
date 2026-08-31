@@ -48,14 +48,14 @@ export function AboutSection({ description, descriptionEn, descriptionKz }: Abou
           </a>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 sm:gap-4">
+        <div className="grid grid-cols-2 gap-2 sm:gap-4">
           {features.map((f) => (
             <div
               key={f.label}
-              className="flex flex-col items-center text-center gap-2 sm:gap-3 p-3 sm:p-5 rounded-xl sm:rounded-2xl bg-white shadow-card border border-border/50 hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300"
+              className="flex flex-col items-center text-center gap-1.5 sm:gap-3 p-2 sm:p-5 rounded-lg sm:rounded-2xl bg-white shadow-card border border-border/50 hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 touch-manipulation"
             >
-              <div className="size-10 sm:size-12 flex items-center justify-center rounded-xl bg-primary/10">
-                <svg className="size-5 sm:size-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <div className="size-8 sm:size-12 flex items-center justify-center rounded-lg sm:rounded-xl bg-primary/10">
+                <svg className="size-4 sm:size-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={f.icon} />
                 </svg>
               </div>

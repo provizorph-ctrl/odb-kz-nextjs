@@ -44,17 +44,17 @@ export function HeroSlider() {
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div className="relative aspect-[16/9] sm:aspect-[2.2/1] w-full">
+      <div className="relative aspect-[16/9] sm:aspect-[2.2/1] w-full will-change-transform">
         {slides.map((slide, index) => (
           <div
             key={slide.src}
             role="group"
             aria-roledescription="slide"
             aria-label={`${index + 1} / ${slides.length}`}
-            className={`absolute inset-0 transition-all duration-700 ease-in-out ${
+            className={`absolute inset-0 transition-opacity duration-700 ease-in-out will-change-opacity ${
               index === currentSlide
-                ? "opacity-100 scale-100 z-10"
-                : "opacity-0 scale-105 z-0"
+                ? "opacity-100 z-10"
+                : "opacity-0 z-0 pointer-events-none"
             }`}
           >
             <div className="w-full h-full bg-gradient-to-br from-primary/20 via-primary/10 to-primary/5 flex items-center justify-center">

@@ -36,13 +36,13 @@ export function Statistics({ stats }: { stats?: StatData[] }) {
 
   return (
     <section className="py-6" aria-label={t("statsLabel") || "Statistics"}>
-      <div className="grid grid-cols-3 gap-2 sm:gap-4">
+      <div className="grid grid-cols-3 gap-1.5 sm:gap-4">
         {items.map((stat) => {
           const path = iconSvgs[stat.icon] || iconSvgs.bed;
           return (
             <div
               key={stat.title}
-              className="relative flex flex-col items-center text-center gap-2 sm:gap-3 p-3 sm:p-6 rounded-xl sm:rounded-2xl bg-white shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 border border-border/50"
+              className="relative flex flex-col items-center text-center gap-1.5 sm:gap-3 p-2 sm:p-6 rounded-lg sm:rounded-2xl bg-white shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 border border-border/50 touch-manipulation"
             >
               <div className="size-10 sm:size-14 flex items-center justify-center rounded-xl sm:rounded-2xl bg-primary/10">
                 <svg className="size-5 sm:size-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

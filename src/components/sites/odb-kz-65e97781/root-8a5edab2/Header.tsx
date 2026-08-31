@@ -62,7 +62,7 @@ export function Header({
       </div>
 
       {/* Main header */}
-      <div className="bg-white shadow-soft border-b border-border/50">
+      <div className="bg-white/95 backdrop-blur-md shadow-soft border-b border-border/50">
         <div className="container mx-auto px-4 flex items-center justify-between py-3">
           <a href="/" className="flex items-center gap-2 sm:gap-3 group">
             <div className="size-9 sm:size-12 rounded-xl overflow-hidden flex items-center justify-center shrink-0">
@@ -151,8 +151,13 @@ export function Header({
       </nav>
 
       {/* Mobile nav */}
-      {mobileOpen && (
-        <nav className="lg:hidden bg-white border-b border-border/50 shadow-lg" aria-label="Mobile navigation">
+      <div
+        className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+          mobileOpen ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0"
+        }`}
+        aria-hidden={!mobileOpen}
+      >
+        <nav className="bg-white border-b border-border/50 shadow-lg" aria-label="Mobile navigation">
           <div className="container mx-auto px-4 py-3">
             {/* Mobile lang switcher */}
             <div className="flex items-center gap-2 mb-3 pb-3 border-b border-gray-100" role="group" aria-label="Language switcher">
@@ -204,7 +209,7 @@ export function Header({
             </ul>
           </div>
         </nav>
-      )}
+      </div>
     </header>
   );
 }

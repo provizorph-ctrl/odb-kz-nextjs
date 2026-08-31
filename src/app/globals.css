@@ -232,9 +232,12 @@
   overflow: hidden;
 }
 
-.skip-link {
-  @apply sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-primary focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:font-semibold;
-}
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-primary focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:font-semibold;
+  }
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
 
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
