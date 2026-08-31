@@ -11,7 +11,7 @@ export function Sidebar({ contacts }: { contacts: ContactData[] }) {
   const { t } = useLang();
 
   return (
-    <aside className="space-y-3 sm:space-y-6 lg:sticky lg:top-24 lg:self-start" aria-label="Sidebar">
+    <aside className="space-y-3 sm:space-y-6 lg:sticky lg:top-24" aria-label="Sidebar">
       <div className="bg-white rounded-lg sm:rounded-2xl p-3 sm:p-6 shadow-soft border border-border/50">
         <h3 className="text-sm font-bold mb-3 sm:mb-4 flex items-center gap-2 font-[family-name:var(--font-heading)]">
           <div className="w-1 h-5 bg-primary rounded-full shrink-0" aria-hidden="true" />

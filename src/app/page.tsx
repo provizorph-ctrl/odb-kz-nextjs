@@ -33,10 +33,10 @@ export default async function Home() {
   return (
     <>
       <Header menu={menu} contacts={contacts} />
-      <main id="main-content" className="w-full max-w-[1200px] mx-auto px-4 py-3 sm:py-6 overflow-hidden">
+      <main id="main-content" className="w-full max-w-[1200px] mx-auto px-4 py-3 sm:py-6">
         <HeroSlider />
-        <div className="grid lg:grid-cols-[1fr_320px] gap-3 sm:gap-4 lg:gap-8 mt-3 sm:mt-6 lg:mt-8">
-          <div className="space-y-3 sm:space-y-4 lg:space-y-8 min-w-0">
+        <div className="flex flex-col lg:flex-row gap-3 sm:gap-4 lg:gap-8 mt-3 sm:mt-6 lg:mt-8">
+          <div className="flex-1 min-w-0 space-y-3 sm:space-y-4 lg:space-y-8">
             <Statistics />
             <AboutSection description={settingMap.site_description} descriptionEn={settingMap.site_description_en} descriptionKz={settingMap.site_description_kz} />
             <DepartmentsMenu departments={departments} />
@@ -46,7 +46,9 @@ export default async function Home() {
             <QuickLinksMenu />
             <MapSection />
           </div>
-          <Sidebar contacts={contacts} />
+          <div className="w-full lg:w-[320px] lg:shrink-0">
+            <Sidebar contacts={contacts} />
+          </div>
         </div>
       </main>
       <Footer contacts={contacts} settingMap={settingMap} />
