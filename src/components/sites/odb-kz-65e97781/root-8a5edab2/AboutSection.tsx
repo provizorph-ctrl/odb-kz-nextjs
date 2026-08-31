@@ -27,20 +27,20 @@ export function AboutSection({ description, descriptionEn, descriptionKz }: Abou
   ];
 
   return (
-    <section className="py-4">
-      <div className="grid md:grid-cols-2 gap-6 md:gap-8 items-start">
-        <div className="space-y-4 sm:space-y-5">
-          <div className="flex items-center gap-2 mb-2">
+    <section className="py-3 sm:py-4">
+      <div className="grid md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 items-start">
+        <div className="space-y-3 sm:space-y-5">
+          <div className="flex items-center gap-2 mb-1 sm:mb-2">
             <div className="section-decoration" aria-hidden="true" />
             <span className="section-label">{t("aboutLabel")}</span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-foreground leading-tight text-balance font-[family-name:var(--font-heading)]">
+          <h2 className="text-lg sm:text-2xl font-bold text-foreground leading-tight text-balance font-[family-name:var(--font-heading)]">
             {t("aboutTitle")}
           </h2>
           <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
             {desc}
           </p>
-          <a href="/o-nas" className="cta-primary">
+          <a href="/o-nas" className="cta-primary text-sm">
             {t("readMore")}
             <svg className="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -52,14 +52,14 @@ export function AboutSection({ description, descriptionEn, descriptionKz }: Abou
           {features.map((f) => (
             <div
               key={f.label}
-              className="flex flex-col items-center text-center gap-1.5 sm:gap-3 p-2 sm:p-5 rounded-lg sm:rounded-2xl bg-white shadow-card border border-border/50 hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 touch-manipulation"
+              className="flex flex-col items-center text-center gap-1.5 sm:gap-3 p-2.5 sm:p-5 rounded-lg sm:rounded-2xl bg-white shadow-card border border-border/50"
             >
               <div className="size-8 sm:size-12 flex items-center justify-center rounded-lg sm:rounded-xl bg-primary/10">
                 <svg className="size-4 sm:size-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={f.icon} />
                 </svg>
               </div>
-              <span className="text-xs sm:text-sm font-medium text-foreground">{f.label}</span>
+              <span className="text-[11px] sm:text-sm font-medium text-foreground leading-tight">{f.label}</span>
             </div>
           ))}
         </div>

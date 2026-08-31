@@ -35,24 +35,24 @@ export function Statistics({ stats }: { stats?: StatData[] }) {
   const items = stats || defaultStats;
 
   return (
-    <section className="py-6" aria-label={t("statsLabel") || "Statistics"}>
-      <div className="grid grid-cols-3 gap-1.5 sm:gap-4">
+    <section className="py-4 sm:py-6" aria-label={t("statsLabel") || "Statistics"}>
+      <div className="grid grid-cols-3 gap-2 sm:gap-4">
         {items.map((stat) => {
           const path = iconSvgs[stat.icon] || iconSvgs.bed;
           return (
             <div
               key={stat.title}
-              className="relative flex flex-col items-center text-center gap-1.5 sm:gap-3 p-2 sm:p-6 rounded-lg sm:rounded-2xl bg-white shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 border border-border/50 touch-manipulation"
+              className="relative flex flex-col items-center text-center gap-1.5 sm:gap-3 p-2.5 sm:p-6 rounded-lg sm:rounded-2xl bg-white shadow-card border border-border/50"
             >
-              <div className="size-10 sm:size-14 flex items-center justify-center rounded-xl sm:rounded-2xl bg-primary/10">
-                <svg className="size-5 sm:size-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <div className="size-9 sm:size-14 flex items-center justify-center rounded-lg sm:rounded-2xl bg-primary/10">
+                <svg className="size-4.5 sm:size-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={path} />
                 </svg>
               </div>
-              <div className="text-xl sm:text-3xl font-bold text-primary tracking-tight font-[family-name:var(--font-heading)]" aria-label={`${stat.count.toLocaleString(locale)} ${langTitle(stat, lang)}`}>
+              <div className="text-lg sm:text-3xl font-bold text-primary tracking-tight font-[family-name:var(--font-heading)]" aria-label={`${stat.count.toLocaleString(locale)} ${langTitle(stat, lang)}`}>
                 {stat.count.toLocaleString(locale)}
               </div>
-              <div className="text-xs sm:text-sm font-medium text-muted-foreground">
+              <div className="text-[11px] sm:text-sm font-medium text-muted-foreground leading-tight">
                 {langTitle(stat, lang)}
               </div>
             </div>

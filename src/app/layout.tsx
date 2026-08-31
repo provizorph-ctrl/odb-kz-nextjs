@@ -24,14 +24,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru" className="h-full antialiased overflow-x-hidden">
+    <html lang="ru" className="h-full antialiased">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&family=Noto+Sans:wght@100..900&display=swap" rel="stylesheet" />
       </head>
       <body
-        className="min-h-full flex flex-col overflow-x-hidden"
+        className="min-h-full flex flex-col"
         style={{ fontFamily: "'Figtree', 'Noto Sans', system-ui, sans-serif" }}
       >
         <a href="#main-content" className="skip-link">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLang } from "@/lib/lang-context";
 
 interface MenuItemData {
@@ -36,12 +36,29 @@ export function Header({
 }) {
   const { lang, setLang, t } = useLang();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const [menuHeight, setMenuHeight] = useState(0);
+
+  useEffect(() => {
+    if (menuRef.current) {
+      setMenuHeight(menuRef.current.scrollHeight);
+    }
+  }, [mobileOpen]);
+
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
 
   return (
-    <header className="sticky top-0 z-50">
-      {/* Top bar */}
+    <header className="sticky top-0 z-50 w-full">
+      {/* Top bar — desktop only */}
       <div className="bg-primary text-white hidden sm:block">
-        <div className="container mx-auto px-4 flex items-center justify-between h-10">
+        <div className="max-w-[1200px] mx-auto px-4 flex items-center justify-between h-10">
           <div className="flex items-center gap-4 text-xs">
             {contacts.slice(0, 1).map((c) => (
               <a
@@ -63,19 +80,19 @@ export function Header({
 
       {/* Main header */}
       <div className="bg-white/95 backdrop-blur-md shadow-soft border-b border-border/50">
-        <div className="container mx-auto px-4 flex items-center justify-between py-3">
-          <a href="/" className="flex items-center gap-2 sm:gap-3 group">
-            <div className="size-9 sm:size-12 rounded-xl overflow-hidden flex items-center justify-center shrink-0">
+        <div className="max-w-[1200px] mx-auto px-4 flex items-center justify-between py-3">
+          <a href="/" className="flex items-center gap-2 sm:gap-3 group min-w-0">
+            <div className="size-9 sm:size-11 rounded-xl overflow-hidden shrink-0">
               <img src="/images/logo.jpeg" alt="ОДБ" className="w-full h-full object-contain" />
             </div>
-            <div>
-              <div className="text-base sm:text-lg font-bold text-primary leading-tight font-[family-name:var(--font-heading)]">{t("hospitalShort")}</div>
-              <div className="text-[10px] sm:text-xs text-muted-foreground leading-tight">{t("hospitalFullName")}</div>
+            <div className="min-w-0">
+              <div className="text-sm sm:text-lg font-bold text-primary leading-tight font-[family-name:var(--font-heading)] truncate">{t("hospitalShort")}</div>
+              <div className="text-[10px] sm:text-xs text-muted-foreground leading-tight truncate">{t("hospitalFullName")}</div>
             </div>
           </a>
 
-          {/* Desktop lang + search */}
-          <div className="hidden lg:flex items-center gap-3">
+          {/* Desktop lang */}
+          <div className="hidden lg:flex items-center gap-3 shrink-0">
             <div className="flex items-center gap-1 text-xs" role="group" aria-label="Language switcher">
               {(["ru", "en", "kz"] as const).map((l) => (
                 <button
@@ -94,10 +111,10 @@ export function Header({
             </div>
           </div>
 
-          {/* Burger button */}
+          {/* Burger */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden size-10 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            className="lg:hidden size-10 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
             aria-label={t("menuLabel")}
             aria-expanded={mobileOpen}
           >
@@ -114,7 +131,7 @@ export function Header({
 
       {/* Desktop nav */}
       <nav className="bg-white border-b border-border/50 hidden lg:block" aria-label="Main navigation">
-        <div className="container mx-auto px-4">
+        <div className="max-w-[1200px] mx-auto px-4">
           <ul className="flex items-center gap-0 overflow-x-auto scrollbar-hide">
             {menu.map((item) => (
               <li key={item.id} className="relative group flex-shrink-0">
@@ -150,16 +167,24 @@ export function Header({
         </div>
       </nav>
 
+      {/* Mobile overlay */}
+      {mobileOpen && (
+        <div
+          className="lg:hidden fixed inset-0 top-[57px] bg-black/30 z-40"
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
+
       {/* Mobile nav */}
       <div
-        className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-          mobileOpen ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0"
-        }`}
+        ref={menuRef}
+        className="lg:hidden bg-white border-b border-border/50 shadow-lg overflow-hidden transition-[max-height] duration-300 ease-in-out"
+        style={{ maxHeight: mobileOpen ? `${menuHeight}px` : "0px" }}
         aria-hidden={!mobileOpen}
       >
-        <nav className="bg-white border-b border-border/50 shadow-lg" aria-label="Mobile navigation">
-          <div className="container mx-auto px-4 py-3">
-            {/* Mobile lang switcher */}
+        <nav aria-label="Mobile navigation">
+          <div className="max-w-[1200px] mx-auto px-4 py-3">
+            {/* Lang switcher */}
             <div className="flex items-center gap-2 mb-3 pb-3 border-b border-gray-100" role="group" aria-label="Language switcher">
               {(["ru", "en", "kz"] as const).map((l) => (
                 <button
@@ -176,8 +201,8 @@ export function Header({
                 </button>
               ))}
             </div>
-            {/* Mobile menu items */}
-            <ul className="space-y-1" role="menu">
+            {/* Menu items */}
+            <ul className="space-y-0.5" role="menu">
               {menu.map((item) => (
                 <li key={item.id} role="none">
                   <a
