@@ -52,12 +52,12 @@ export function MapSection() {
         </h2>
       </div>
 
-      <div className="relative rounded-lg sm:rounded-2xl overflow-hidden border border-border/50 shadow-card bg-white">
+      <div className="rounded-lg sm:rounded-2xl border border-border/50 shadow-card bg-white">
         {/* Main clickable area */}
         <button
           type="button"
           onClick={() => setMenuOpen((v) => !v)}
-          className="w-full text-left px-4 py-6 sm:px-8 sm:py-10 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary touch-manipulation group"
+          className="w-full text-left px-4 py-6 sm:px-8 sm:py-10 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary group"
           aria-expanded={menuOpen}
           aria-label={t("mapAddress")}
         >
@@ -82,42 +82,38 @@ export function MapSection() {
           </div>
         </button>
 
-        {/* Navigation buttons — visible/hidden via padding, NOT overflow-hidden */}
-        <div
-          className="px-4 sm:px-8"
-          style={{
-            paddingBottom: menuOpen ? "1rem" : "0",
-            display: menuOpen ? "block" : "none",
-          }}
-        >
-          <div className="border-t border-border/50 pt-3 sm:pt-4">
-            <p className="text-xs text-muted-foreground mb-2 sm:mb-3 font-medium uppercase tracking-wider">
-              {t("mapChoose")}
-            </p>
-            <div className="flex flex-col sm:grid sm:grid-cols-3 gap-2">
-              {NAV_LINKS.map((link) => (
-                <a
-                  key={link.id}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2.5 sm:gap-3 px-3 py-3 sm:px-4 sm:py-3 rounded-lg sm:rounded-xl bg-white border border-border/50 hover:border-current shadow-sm hover:shadow-card transition-all duration-200 group/btn touch-manipulation"
-                  style={{ color: link.color }}
-                >
-                  <span className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-current/10 flex items-center justify-center shrink-0 transition-colors duration-200 group-hover/btn:bg-current/20">
-                    {link.icon}
-                  </span>
-                  <span className="text-sm font-semibold text-foreground truncate">
-                    {link.label}
-                  </span>
-                  <svg className="w-4 h-4 text-muted-foreground ml-auto shrink-0 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                </a>
-              ))}
+        {/* Navigation buttons — always in DOM, visibility via height+opacity */}
+        {menuOpen && (
+          <div className="px-4 pb-4 sm:px-8 sm:pb-6">
+            <div className="border-t border-border/50 pt-3 sm:pt-4">
+              <p className="text-xs text-muted-foreground mb-2 sm:mb-3 font-medium uppercase tracking-wider">
+                {t("mapChoose")}
+              </p>
+              <div className="flex flex-col sm:grid sm:grid-cols-3 gap-2">
+                {NAV_LINKS.map((link) => (
+                  <a
+                    key={link.id}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2.5 sm:gap-3 px-3 py-3 sm:px-4 sm:py-3 rounded-lg sm:rounded-xl bg-white border border-border/50 hover:border-current shadow-sm hover:shadow-card transition-all duration-200 touch-manipulation"
+                    style={{ color: link.color }}
+                  >
+                    <span className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-current/10 flex items-center justify-center shrink-0">
+                      {link.icon}
+                    </span>
+                    <span className="text-sm font-semibold text-foreground truncate">
+                      {link.label}
+                    </span>
+                    <svg className="w-4 h-4 text-muted-foreground ml-auto shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
