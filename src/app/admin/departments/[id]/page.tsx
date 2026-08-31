@@ -9,7 +9,7 @@ export default function EditDepartmentPage({ params }: { params: Promise<{ id: s
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState({
-    slug: "", name: "", nameEn: "", nameKz: "", nameQz: "",
+    slug: "", name: "", nameEn: "", nameKz: "",
     description: "", descriptionEn: "", descriptionKz: "",
     icon: "", sortOrder: 0, isPublished: false,
   });
@@ -18,7 +18,7 @@ export default function EditDepartmentPage({ params }: { params: Promise<{ id: s
     fetch(`/api/departments/${id}`).then(r => r.json()).then(data => {
       setForm({
         slug: data.slug || "", name: data.name || "",
-        nameEn: data.nameEn || "", nameKz: data.nameKz || "", nameQz: data.nameQz || "",
+        nameEn: data.nameEn || "", nameKz: data.nameKz || "",
         description: data.description || "",
         descriptionEn: data.descriptionEn || "", descriptionKz: data.descriptionKz || "",
         icon: data.icon || "", sortOrder: data.sortOrder || 0,
@@ -64,7 +64,7 @@ export default function EditDepartmentPage({ params }: { params: Promise<{ id: s
             <input type="text" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg" required />
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-1">Название (EN)</label>
             <input type="text" value={form.nameEn} onChange={e => setForm({ ...form, nameEn: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
@@ -72,10 +72,6 @@ export default function EditDepartmentPage({ params }: { params: Promise<{ id: s
           <div>
             <label className="block text-sm font-medium mb-1">Название (KZ)</label>
             <input type="text" value={form.nameKz} onChange={e => setForm({ ...form, nameKz: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Название (QZ)</label>
-            <input type="text" value={form.nameQz} onChange={e => setForm({ ...form, nameQz: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
           </div>
         </div>
         <div>

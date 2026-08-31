@@ -125,20 +125,9 @@ export function Footer({ contacts, settingMap }: FooterProps) {
         </div>
 
         <div className="border-t border-white/10 pt-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4">
             <span className="text-xs text-white/50">
-              &copy; 2021-2025 {settingMap.siteName || t("hospitalFullName")}
-            </span>
-            <span className="text-xs text-white/50">
-              {t("development")}{" "}
-              <a
-                href="https://itgk.kz"
-                className="text-primary hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                IT Group Kazakhstan
-              </a>
+              &copy; 2026 {settingMap.siteName || t("hospitalFullName")}
             </span>
           </div>
         </div>

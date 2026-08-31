@@ -35,6 +35,7 @@ export const translations = {
   nextSlide: { ru: "Следующий слайд", en: "Next slide", kz: "Келесі слайд" },
 
   // Statistics
+  statsLabel: { ru: "Статистика", en: "Statistics", kz: "Статистика" },
   beds: { ru: "коек", en: "beds", kz: "кереует" },
   treated: { ru: "пролечено", en: "treated", kz: "емделді" },
   admitted: { ru: "принято", en: "admitted", kz: "қабылданды" },
@@ -125,5 +126,7 @@ export const translations = {
 export type TranslationKey = keyof typeof translations;
 
 export function t(lang: Lang, key: TranslationKey): string {
-  return translations[key][lang] || translations[key]["ru"];
+  const entry = translations[key];
+  if (!entry) return key;
+  return entry[lang] || entry["ru"] || key;
 }

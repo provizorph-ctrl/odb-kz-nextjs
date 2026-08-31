@@ -11,11 +11,9 @@ export default function NewPage() {
     title: "",
     titleEn: "",
     titleKz: "",
-    titleQz: "",
     content: "",
     contentEn: "",
     contentKz: "",
-    contentQz: "",
     description: "",
     isPublished: false,
   });
@@ -68,7 +66,7 @@ export default function NewPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-1">
               Заголовок (EN)
@@ -88,17 +86,6 @@ export default function NewPage() {
               type="text"
               value={form.titleKz}
               onChange={(e) => setForm({ ...form, titleKz: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">
-              Заголовок (QZ)
-            </label>
-            <input
-              type="text"
-              value={form.titleQz}
-              onChange={(e) => setForm({ ...form, titleQz: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg"
             />
           </div>

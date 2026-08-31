@@ -9,8 +9,8 @@ export default function EditNewsPage({ params }: { params: Promise<{ id: string 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState({
-    slug: "", title: "", titleEn: "", titleKz: "", titleQz: "",
-    content: "", contentEn: "", contentKz: "", contentQz: "",
+    slug: "", title: "", titleEn: "", titleKz: "",
+    content: "", contentEn: "", contentKz: "",
     description: "", isPublished: false, isFeatured: false,
   });
 
@@ -18,9 +18,9 @@ export default function EditNewsPage({ params }: { params: Promise<{ id: string 
     fetch(`/api/news/${id}`).then(r => r.json()).then(data => {
       setForm({
         slug: data.slug || "", title: data.title || "",
-        titleEn: data.titleEn || "", titleKz: data.titleKz || "", titleQz: data.titleQz || "",
+        titleEn: data.titleEn || "", titleKz: data.titleKz || "",
         content: data.content || "",
-        contentEn: data.contentEn || "", contentKz: data.contentKz || "", contentQz: data.contentQz || "",
+        contentEn: data.contentEn || "", contentKz: data.contentKz || "",
         description: data.description || "",
         isPublished: data.isPublished || false, isFeatured: data.isFeatured || false,
       });
@@ -64,7 +64,7 @@ export default function EditNewsPage({ params }: { params: Promise<{ id: string 
             <input type="text" value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg" required />
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-1">Заголовок (EN)</label>
             <input type="text" value={form.titleEn} onChange={e => setForm({ ...form, titleEn: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
@@ -72,10 +72,6 @@ export default function EditNewsPage({ params }: { params: Promise<{ id: string 
           <div>
             <label className="block text-sm font-medium mb-1">Заголовок (KZ)</label>
             <input type="text" value={form.titleKz} onChange={e => setForm({ ...form, titleKz: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Заголовок (QZ)</label>
-            <input type="text" value={form.titleQz} onChange={e => setForm({ ...form, titleQz: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
           </div>
         </div>
         <div>

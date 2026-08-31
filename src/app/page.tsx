@@ -3,8 +3,6 @@ import { HeroSlider } from "@/components/sites/odb-kz-65e97781/root-8a5edab2/Her
 import { Statistics } from "@/components/sites/odb-kz-65e97781/root-8a5edab2/Statistics";
 import { AboutSection } from "@/components/sites/odb-kz-65e97781/root-8a5edab2/AboutSection";
 import { DepartmentsMenu } from "@/components/sites/odb-kz-65e97781/root-8a5edab2/DepartmentsMenu";
-
-export const dynamic = "force-dynamic";
 import { NewsModule } from "@/components/sites/odb-kz-65e97781/root-8a5edab2/NewsModule";
 import { PhotoGallery } from "@/components/sites/odb-kz-65e97781/root-8a5edab2/PhotoGallery";
 import { GovProgramsCarousel } from "@/components/sites/odb-kz-65e97781/root-8a5edab2/GovProgramsCarousel";
@@ -15,29 +13,22 @@ import { Footer } from "@/components/sites/odb-kz-65e97781/root-8a5edab2/Footer"
 import { getLayoutData } from "@/lib/layout-data";
 import { query } from "@/lib/db";
 
-interface DepartmentRow {
-  slug: string;
-  name: string;
-}
+export const dynamic = "force-dynamic";
 
-interface NewsRow {
-  slug: string;
-  title: string;
-  description: string | null;
-  date: string;
-}
+interface DepartmentRow { slug: string; name: string; }
+interface NewsRow { slug: string; title: string; description: string | null; date: string; }
 
 export default async function Home() {
   const { menu, contacts, settingMap } = await getLayoutData();
 
-  const [departments, news] = await Promise.all([
-    query<DepartmentRow>(
-      'SELECT slug, name FROM "Department" WHERE "isPublished" = true ORDER BY "sortOrder" ASC'
-    ),
-    query<NewsRow>(
-      'SELECT slug, title, description, "date" FROM "News" WHERE "isPublished" = true ORDER BY "date" DESC LIMIT 6'
-    ),
-  ]);
+  let departments: DepartmentRow[] = [];
+  let news: NewsRow[] = [];
+  try {
+    [departments, news] = await Promise.all([
+      query<DepartmentRow>('SELECT slug, name FROM "Department" WHERE "isPublished" = true ORDER BY "sortOrder" ASC'),
+      query<NewsRow>('SELECT slug, title, description, "date" FROM "News" WHERE "isPublished" = true ORDER BY "date" DESC LIMIT 6'),
+    ]);
+  } catch {}
 
   return (
     <>
@@ -47,11 +38,7 @@ export default async function Home() {
         <div className="grid lg:grid-cols-[1fr_320px] gap-6 lg:gap-8 mt-6 lg:mt-8">
           <div className="space-y-6 lg:space-y-8">
             <Statistics />
-            <AboutSection
-              description={settingMap.site_description}
-              descriptionEn={settingMap.site_description_en}
-              descriptionKz={settingMap.site_description_kz}
-            />
+            <AboutSection description={settingMap.site_description} descriptionEn={settingMap.site_description_en} descriptionKz={settingMap.site_description_kz} />
             <DepartmentsMenu departments={departments} />
             <NewsModule news={news} />
             <PhotoGallery />

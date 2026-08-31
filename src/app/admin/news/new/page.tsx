@@ -11,11 +11,9 @@ export default function NewNewsPage() {
     title: "",
     titleEn: "",
     titleKz: "",
-    titleQz: "",
     content: "",
     contentEn: "",
     contentKz: "",
-    contentQz: "",
     description: "",
     isPublished: false,
     isFeatured: false,
@@ -50,7 +48,7 @@ export default function NewNewsPage() {
             <input type="text" value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg" required />
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-1">Заголовок (EN)</label>
             <input type="text" value={form.titleEn} onChange={e => setForm({ ...form, titleEn: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
@@ -58,10 +56,6 @@ export default function NewNewsPage() {
           <div>
             <label className="block text-sm font-medium mb-1">Заголовок (KZ)</label>
             <input type="text" value={form.titleKz} onChange={e => setForm({ ...form, titleKz: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Заголовок (QZ)</label>
-            <input type="text" value={form.titleQz} onChange={e => setForm({ ...form, titleQz: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
           </div>
         </div>
         <div>
