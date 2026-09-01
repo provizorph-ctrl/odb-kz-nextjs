@@ -30,7 +30,7 @@ export function Footer({ contacts, settingMap }: FooterProps) {
 
   return (
     <footer className="bg-foreground text-white mt-auto" role="contentinfo">
-      <div className="max-w-[1200px] mx-auto px-4 py-6 sm:py-10">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 mb-6 sm:mb-8">
           <div className="col-span-2 md:col-span-1 space-y-3 sm:space-y-4 min-w-0">
             <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">

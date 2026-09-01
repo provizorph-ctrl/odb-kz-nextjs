@@ -40,7 +40,7 @@ export function Header({
     <header className="sticky top-0 z-50 w-full">
       {/* Top bar — desktop only */}
       <div className="bg-primary text-white hidden sm:block">
-        <div className="max-w-[1200px] mx-auto px-4 flex items-center justify-between h-10">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-10">
           <div className="flex items-center gap-4 text-xs">
             {contacts.slice(0, 1).map((c) => (
               <a
@@ -61,8 +61,8 @@ export function Header({
       </div>
 
       {/* Main header */}
-      <div className="bg-white/95 backdrop-blur-md shadow-soft border-b border-border/50">
-        <div className="max-w-[1200px] mx-auto px-4 py-3">
+      <div className="bg-white shadow-soft border-b border-border/50">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
 
           {/* Desktop layout */}
           <div className="hidden lg:flex items-center justify-between">
@@ -165,7 +165,7 @@ export function Header({
 
       {/* Desktop nav */}
       <nav className="bg-white border-b border-border/50 hidden lg:block" aria-label="Main navigation">
-        <div className="max-w-[1200px] mx-auto px-4">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <ul className="flex items-center gap-0 overflow-x-auto scrollbar-hide">
             {menu.map((item) => (
               <li key={item.id} className="relative group flex-shrink-0">
