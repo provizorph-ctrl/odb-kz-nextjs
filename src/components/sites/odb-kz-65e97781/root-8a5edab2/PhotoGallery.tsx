@@ -80,13 +80,19 @@ export function PhotoGallery() {
             className="group relative aspect-square rounded-lg sm:rounded-xl overflow-hidden bg-muted border border-border/50 hover:border-primary/30 transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary touch-manipulation"
             data-lightbox="gallery"
           >
-            <img
-              src={image.thumbnail || image.src}
-              alt={image.alt}
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+            {/* Vector placeholder */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-primary/15">
+              <div className="absolute -top-6 -right-6 w-20 h-20 rounded-full bg-primary/8" />
+              <div className="absolute -bottom-8 -left-8 w-24 h-24 rounded-full bg-primary/6" />
+            </div>
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 p-2">
+              <svg className="w-7 h-7 sm:w-10 sm:h-10 text-primary/20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span className="text-primary/25 text-[10px] sm:text-xs font-medium text-center leading-tight break-words">{image.alt}</span>
+            </div>
+            {/* Hover overlay */}
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
               <div className="w-10 h-10 rounded-full bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
                 <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />

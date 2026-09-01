@@ -64,12 +64,17 @@ export function GovProgramsCarousel() {
             <div key={program.id} className="flex-shrink-0 px-1 sm:px-2" style={{ width: `${100 / visibleCount}%` }}>
               <a href={program.url} className="group block rounded-lg sm:rounded-2xl overflow-hidden bg-white border border-border/50 shadow-card hover:shadow-card-hover transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary touch-manipulation">
                 <div className="relative aspect-video overflow-hidden bg-muted">
-                  <img
-                    src={program.image}
-                    alt={langTitle(program, lang)}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
+                  {/* Vector placeholder */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-primary/15">
+                    <div className="absolute -top-8 -right-8 w-28 h-28 rounded-full bg-primary/6" />
+                    <div className="absolute -bottom-10 -left-10 w-32 h-32 rounded-full bg-primary/8" />
+                  </div>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 p-3">
+                    <svg className="w-8 h-8 sm:w-12 sm:h-12 text-primary/20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <span className="text-primary/25 text-[10px] sm:text-xs font-medium text-center leading-tight break-words">{langTitle(program, lang)}</span>
+                  </div>
                 </div>
                 <div className="p-2.5 sm:p-4">
                   <span className="text-xs sm:text-sm font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2 leading-tight break-words">{langTitle(program, lang)}</span>
